@@ -9,7 +9,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (auth === true) {
-      navigate("/extra");
+      navigate("/doctor");
     }
   }, [auth, navigate]);
 

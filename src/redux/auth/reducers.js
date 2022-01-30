@@ -12,6 +12,7 @@ const initialState = {
 export function authReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN_SUCCESS_ACTION:
+      console.log("datadtadata",action.data)
       return Object.assign(
         {},
         state,
