@@ -9,7 +9,7 @@ const Doctor = () => {
   const navigate = useNavigate();
   const auth = useSelector((state) => state.authStore.isAuthenticated);
   const apiStore = useSelector((state) => state.apiStore);
-  console.log(apiStore)
+
   useEffect(() => {
     if (auth !== true) {
       navigate("/login");
@@ -17,9 +17,18 @@ const Doctor = () => {
     dispatch(loadApiThunk());
   }, [auth, navigate]);
 
+  const currentBusinessId = localStorage.getItem("businessId");
+
   return (
     <div>
-      <DoctorComponent apiStore={apiStore}/>
+      <p>Hi! Welcome to Doctors Page!</p>
+      {apiStore.doctors
+        ? apiStore.doctors
+        .filter((childDoc) => childDoc.business_id == currentBusinessId)
+        .map((eachDoc, i) => (
+          <DoctorComponent {...eachDoc}/>
+            ))
+            : "You don't have any doctors! GEH!"}
     </div>
   );
 };

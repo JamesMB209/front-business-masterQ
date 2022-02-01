@@ -1,27 +1,49 @@
 import React, { useState, useEffect } from "react";
-import { loadApiThunk } from "../redux/api/actions";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Button } from "bootstrap";
-const Doctor = (props) => {
+import socketIOClient from 'socket.io-client';
+
+import { loadApiThunk } from "../redux/api/actions";
+
+export default function DoctorComponent (props) {
+
   const dispatch = useDispatch();
   const currentBusinessId = localStorage.getItem("businessId");
+  const [socket, setSocket] = useState(null)
+
+  let store = useSelector((state) => state);
+
+  console.log(store)
+
+  //Set up socket connection
+  let token = localStorage.getItem("token");
+
   useEffect(() => {
-    dispatch(loadApiThunk());
-    console.log(props.apiStore.doctors);
+    setSocket(socketIOClient(process.env.REACT_APP_API_SERVER, {
+      transports: ['websocket'],
+      query: { token }
+    }))
   }, []);
 
+  //Set up listeners and close conection if they die.
+  useEffect(() => {
+    if (!socket) return;
+    socket.emit("JOIN_ROOM", { business:props.business_id, doctor:props.id });
+
+    // socket.on("UPDATE_PATIENT", () => {
+    //   socket.emit("GET_QUEUE_POSTITION", { ...queueStore });
+    // })
+
+    return () => socket.disconnect();
+  }, [socket]);
+
+
+  console.log(props)
   return (
     <div>
-      <p>Hi! Welcome to Doctors Page!</p>
-      {props.apiStore.doctors
-        ? props.apiStore.doctors
-            .filter((childDoc) => childDoc.business_id == currentBusinessId)
-            .map((eachDoc, i) => (
-                <a href={`/doctor/${eachDoc.id}`}>Doctor {eachDoc.f_name} {eachDoc.l_name}'s room </a>
-            ))
-        : "You don't have any doctors! GEH!"}
+    <button onClick={() => { socket.emit("NEXT",  { business:props.business_id, doctor:props.id }) }}>test button to advance the doctors queue</button>
+   
     </div>
   );
 };
 
-export default Doctor;
