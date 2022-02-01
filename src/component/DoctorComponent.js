@@ -41,8 +41,9 @@ export default function DoctorComponent (props) {
   console.log(props)
   return (
     <div>
-    <button onClick={() => { socket.emit("NEXT",  { business:props.business_id, doctor:props.id }) }}>test button to advance the doctors queue</button>
-   
+      <p>more info</p>
+
+    <Button onClick={() => { socket.emit("NEXT",  { business:props.business_id, doctor:props.id }) }}>Next</Button>
     </div>
   );
 };

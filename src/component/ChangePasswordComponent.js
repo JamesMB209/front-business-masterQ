@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const SettingsComponent = () => {
+const ChangePasswordComponent = () => {
     const [newPassword, setNewPassword] = useState("");
     const [verifyNewPassword, setVerifyNewPassword] = useState("")
     const passwordCheck = (newPassword, verifyNewPassword) => {
@@ -40,4 +40,4 @@ const SettingsComponent = () => {
     );
 };
 
-export default SettingsComponent;
+export default ChangePasswordComponent;
