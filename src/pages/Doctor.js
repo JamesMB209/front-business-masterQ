@@ -9,6 +9,7 @@ const Doctor = () => {
   const navigate = useNavigate();
   const auth = useSelector((state) => state.authStore.isAuthenticated);
   const apiStore = useSelector((state) => state.apiStore);
+  console.log(apiStore)
   useEffect(() => {
     if (auth !== true) {
       navigate("/login");

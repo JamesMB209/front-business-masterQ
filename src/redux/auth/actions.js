@@ -21,7 +21,7 @@ export function loginFailure(message) {
 
 export const loginThunkSuccess = (email, password) => async (dispatch) => {
   try {
-    dispatch({type: LOGIN_REQUEST_ACTION});// is this necessary
+    dispatch({type: LOGIN_REQUEST_ACTION});
     const response = await axios.post(
       `${process.env.REACT_APP_API_SERVER}/api/login`,
       { type: "business_users", email: email, password: password }
@@ -52,5 +52,6 @@ export const loginThunkSuccess = (email, password) => async (dispatch) => {
 
 export const logOutThunk = () => (dispatch) => {
   localStorage.clear("token");
+  localStorage.clear("buinessId")
   dispatch({type: LOGOUT_NOW_ACTION})
 }

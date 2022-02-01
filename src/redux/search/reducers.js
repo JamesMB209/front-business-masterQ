@@ -7,11 +7,10 @@ const initialState = {
 export function searchReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_SEARCH:
-        console.log(action.data)
-        console.log(state.data)
-        return Object.assign({}, state, {data: [...action.data]})
+      return Object.assign({}, state, { data: [...action.data] });
+    case LOAD_FAIL:
+      return state;
     default:
-        console.log(state)
       return state;
   }
 }

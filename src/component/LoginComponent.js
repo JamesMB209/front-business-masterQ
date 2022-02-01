@@ -14,12 +14,6 @@ const Login = (props) => {
   const auth = useSelector((state) => state.authStore.isAuthenticated);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (auth !== true) {
-      navigate("/login");
-    }
-  }, [auth, navigate]);
-
   const login = (e) => {
     e.preventDefault()
     dispatch(loginThunkSuccess(email, password));

@@ -17,10 +17,6 @@ const Doctor = (props) => {
         ? props.apiStore.doctors
             .filter((childDoc) => childDoc.business_id == currentBusinessId)
             .map((eachDoc, i) => (
-            //   <p key={i}>
-            //     Dr.
-            //     {eachDoc.f_name} {eachDoc.l_name}
-            //   </p>
                 <a href={`/doctor/${eachDoc.id}`}>Doctor {eachDoc.f_name} {eachDoc.l_name}'s room </a>
             ))
         : "You don't have any doctors! GEH!"}

@@ -1,4 +1,3 @@
-// import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadPatientThunk } from "../redux/search/actions";
@@ -6,10 +5,8 @@ import { useNavigate } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 
 const SearchBar = (props) => {
-  const auth = useSelector((state) => state.authStore.isAuthenticated);
   const [searchPatients, setSearchPatients] = useState("");
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(loadPatientThunk());
@@ -20,15 +17,25 @@ const SearchBar = (props) => {
       <input
         type="text"
         value={searchPatients}
-        onChange={(e) => setSearchPatients(e.target.value)} placeholder="Enter patient's HKID"
+        onChange={(e) => setSearchPatients(e.target.value)}
+        placeholder="Enter patient's HKID"
       />
       {props.searchingStore
         ? props.searchingStore
             .filter((val) => {
-              if (val == "") {
+              if (val == "" || searchPatients.trim() == "") {
                 return val;
-              } else if(val.hkid.toLowerCase().includes(searchPatients.toLowerCase())){
-                return val
+              } else if (
+                val.hkid.toLowerCase().includes(searchPatients.toLowerCase()) ||
+                val.f_name
+                  .toLowerCase()
+                  .includes(searchPatients.toLowerCase()) ||
+                val.l_name
+                  .toLowerCase()
+                  .includes(searchPatients.toLowerCase()) ||
+                val.email.toLowerCase().includes(searchPatients.toLowerCase())
+              ) {
+                return val;
               }
             })
             .map((eachPatient, index) => {
@@ -57,7 +64,7 @@ const SearchBar = (props) => {
                           Allergies: {eachPatient.drug_allergy}
                         </p>
                       </Card.Text>
-                      {/* <Button variant="primary">Go somewhere</Button> */}
+                      {/* <Button variant="primary">Go somewhere</Button>  a//////// add modal to check appointment history? */}
                     </Card.Body>
                   </Card>
                 </div>
