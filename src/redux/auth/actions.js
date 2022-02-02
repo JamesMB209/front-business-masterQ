@@ -52,6 +52,6 @@ export const loginThunkSuccess = (email, password) => async (dispatch) => {
 
 export const logOutThunk = () => (dispatch) => {
   localStorage.clear("token");
-  localStorage.clear("buinessId")
+  localStorage.clear("businessId")
   dispatch({type: LOGOUT_NOW_ACTION})
 }
