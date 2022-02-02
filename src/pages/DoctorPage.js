@@ -14,7 +14,7 @@ const Doctor = () => {
   const apiStore = useSelector((state) => state.apiStore);
   const [doctorSelected, setDoctorSelected] = useState("")
   const currentBusinessId = localStorage.getItem("businessId");
-
+  console.log(apiStore)
   useEffect(() => {
     if (auth !== true) {
       navigate("/login");
