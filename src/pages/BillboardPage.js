@@ -45,10 +45,10 @@ const Billboard = () => {
 
     return (
         <>
-            {bisObj ?
+            {/* {bisObj ?
 
-                <p>doctorbisObj[1].f_name </p>: " "}
-            test
+                <p>{bisObj[1].f_name }</p>: " "} */}
+                hi
         </>
 
         // <div>
