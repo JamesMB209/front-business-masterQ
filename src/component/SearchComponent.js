@@ -4,6 +4,9 @@ import { loadPatientThunk } from "../redux/search/actions";
 import { useNavigate } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 
+import { CDBCard, CDBCardBody, CDBDataTable, CDBContainer } from "cdbreact";
+
+
 const SearchBar = (props) => {
   const [searchPatients, setSearchPatients] = useState("");
   const dispatch = useDispatch();
@@ -18,7 +21,7 @@ const SearchBar = (props) => {
         type="text"
         value={searchPatients}
         onChange={(e) => setSearchPatients(e.target.value)}
-        placeholder="Enter patient's HKID"
+        placeholder="Enter to search patient"
       />
       {props.searchingStore
         ? props.searchingStore
@@ -41,8 +44,25 @@ const SearchBar = (props) => {
             .map((eachPatient, index) => {
               return (
                 <div key={index}>
-                  <Card style={{ width: "18rem" }}>
-                    {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+                    <CDBContainer>
+                        <CDBCard>
+                          <CDBCardBody>
+                            <CDBDataTable
+                              striped
+                              bordered
+                              hover
+                              entriesOptions={[5, 20, 25]}
+                              entries={5}
+                              pagesAmount={4}
+                              data={eachPatient.f_name}
+                              materialSearch={true}
+                            />
+                          </CDBCardBody>
+                        </CDBCard>
+                      </CDBContainer>
+
+                  {/* <Card style={{ width: "18rem" }}>
+                    {/* <Card.Img variant="top" src="holder.js/100px180" /> 
                     <Card.Body>
                       <Card.Title>
                         <p className="patients_fullname">
@@ -64,9 +84,9 @@ const SearchBar = (props) => {
                           Allergies: {eachPatient.drug_allergy}
                         </p>
                       </Card.Text>
-                      {/* <Button variant="primary">Go somewhere</Button>  a//////// add modal to check appointment history? */}
+                      {/* <Button variant="primary">Go somewhere</Button>  a//////// add modal to check appointment history? 
                     </Card.Body>
-                  </Card>
+                  </Card> */}
                 </div>
               );
             })
