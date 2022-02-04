@@ -29,6 +29,8 @@ const Billboard = () => {
         if (!socket) return;
 
         socket.on("UPDATE_BILLBOARD", (data) => {
+            delete data.id
+            delete data.pharmacy
             setBisObj(data)
             console.log(data)
         })
@@ -43,12 +45,11 @@ const Billboard = () => {
 
 
 
+    console.log(bisObj)
     return (
         <>
-            {/* {bisObj ?
-
-                <p>{bisObj[1].f_name }</p>: " "} */}
-                hi
+            {/* {bisObj ? bisObj.map((eachDoctor) => {console.log(eachDoctor)}) : " uh ho "} */}
+            hi
         </>
 
         // <div>
