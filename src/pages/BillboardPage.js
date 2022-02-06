@@ -1,67 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import BillboardComponent from '../component/BillboardComponent'
-import socketIOClient from 'socket.io-client';
-
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import BillboardComponent from "../component/BillboardComponent";
+import { loadBusinessObjThunk } from "../redux/businessObj/actions";
 
 const Billboard = () => {
-    let token = localStorage.getItem("token");
-
-    const apiStore = useSelector((state) => state.apiStore)
-    const stores = useSelector((state) => state)
-    const currentBusinessId = localStorage.getItem("businessId");
-    const [socket, setSocket] = useState(null);
-
-    const [bisObj, setBisObj] = useState(null)
-
-    console.log(stores)
-    console.log(apiStore)
-
-    useEffect(() => {
-        setSocket(socketIOClient(process.env.REACT_APP_API_SERVER, {
-            transports: ['websocket'],
-            query: { token }
-        }))
-        console.log("billboard component connected")
-    }, []);
-
-    useEffect(() => {
-        if (!socket) return;
-
-        socket.on("UPDATE_BILLBOARD", (data) => {
-            delete data.id
-            delete data.pharmacy
-            setBisObj(data)
-            console.log(data)
-        })
-        console.log("trigged")
-        socket.emit("refreshDat")
-    }, [socket]);
-
-    useEffect(() => {
-        if (!socket) return
-        return () => socket.disconnect();
-    }, [socket])
-
-
-
-    console.log(bisObj)
-    return (
-        <>
-            {/* {bisObj ? bisObj.map((eachDoctor) => {console.log(eachDoctor)}) : " uh ho "} */}
-            hi
-        </>
-
-        // <div>
-        //     <p>Hi! Welcome to Billboard page!</p>
-        //     {apiStore.doctors
-        //         ? apiStore.doctors
-        //             .filter((childDoc) => childDoc.business_id == currentBusinessId)
-        //             .map((eachDoc, i) => (
-        //                 <div key={i}>{eachDoc.f_name} {eachDoc.l_name}</div>
-        //             )) : "HIRE DOCTORS!"}
-        // </div>
-    );
+  let token = localStorage.getItem("token");
+  let currentBusinessId = localStorage.getItem("businessId");
+  const apiStore = useSelector((state) => state.apiStore);
+  const stores = useSelector((state) => state);
+  const businessObjectStore = useSelector((state) => state.businessObjectStore);
+  const [socket, setSocket] = useState(null);
+  const dispatch = useDispatch()
+  useEffect(() => {
+      dispatch(loadBusinessObjThunk(currentBusinessId))
+  }, [loadBusinessObjThunk])
+//  businessObjectStore.map((object) => object.f_name)
+  const [bisObj, setBisObj] = useState(null);
+  delete businessObjectStore.data
+//   businessObjectStore.shift()
+  console.log(stores);
+  console.log(apiStore);
+console.log(businessObjectStore)
+  return (
+    <>
+      {/* {businessObjectStore ? businessObjectStore.map((object) => (
+          object.f_name)): "ruh rou"} */}
+          <div><h2>{businessObjectStore[1].fullName} </h2>{businessObjectStore[1].queue.map((eachP) => <p>{eachP.f_name} {eachP.l_name}</p>)}</div>
+          <div><h2>{businessObjectStore[2].fullName} </h2>{businessObjectStore[2].queue.map((eachP) => <p>{eachP.f_name} {eachP.l_name}</p>)}</div>
+          <div><h2>{businessObjectStore[3].fullName} </h2>{businessObjectStore[3].queue.map((eachP) => <p>{eachP.f_name} {eachP.l_name}</p>)}</div>
+    </>
+  );
 };
 
 export default Billboard;

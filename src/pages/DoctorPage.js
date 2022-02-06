@@ -3,6 +3,8 @@ import { loadApiThunk } from "../redux/api/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import DropdownButton from 'react-bootstrap/DropdownButton'
+import { loadBusinessObjThunk } from "../redux/businessObj/actions";
+
 
 import DoctorComponent from '../component/DoctorComponent'
 import Dropdown from 'react-bootstrap/Dropdown'
@@ -20,7 +22,8 @@ const Doctor = () => {
       navigate("/login");
     }
     dispatch(loadApiThunk());
-  }, [auth, navigate]);
+    dispatch(loadBusinessObjThunk(currentBusinessId));
+  }, [auth, navigate, loadBusinessObjThunk]);
 
   return (
     <div>
