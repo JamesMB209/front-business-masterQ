@@ -8,6 +8,7 @@ import { loadBusinessObjThunk } from "../redux/businessObj/actions";
 
 import DoctorComponent from '../component/DoctorComponent'
 import Dropdown from 'react-bootstrap/Dropdown'
+import { loadDoctorObjThunk } from "../redux/doctorObj/actions";
 
 const Doctor = () => {
   const dispatch = useDispatch();
@@ -16,14 +17,13 @@ const Doctor = () => {
   const apiStore = useSelector((state) => state.apiStore);
   const [doctorSelected, setDoctorSelected] = useState("")
   const currentBusinessId = localStorage.getItem("businessId");
-  console.log(apiStore)
   useEffect(() => {
     if (auth !== true) {
       navigate("/login");
     }
     dispatch(loadApiThunk());
     dispatch(loadBusinessObjThunk(currentBusinessId));
-  }, [auth, navigate, loadBusinessObjThunk]);
+  }, [auth, navigate]);
 
   return (
     <div>

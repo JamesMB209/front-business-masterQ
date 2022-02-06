@@ -17,7 +17,6 @@ export function loadBusinessObjThunk (business) {
                 console.log(response)
                 delete response.data.data
                 delete response.data.id
-                delete response.data.pharmacy
                 dispatch({type: LOAD_BUSINESS_OBJECT_SUCCESS, data: response.data})
             }).catch((err) => {
                 console.log(err)

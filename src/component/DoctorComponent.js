@@ -1,49 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "react-bootstrap";
-import socketIOClient from "socket.io-client";
-import { loadBusinessObjThunk } from "../redux/businessObj/actions";
-
-import { loadApiThunk } from "../redux/api/actions";
+import { loadDoctorObjThunk } from "../redux/doctorObj/actions";
 
 export default function DoctorComponent(props) {
-  const dispatch = useDispatch();
-  let token = localStorage.getItem("token");
-  // const currentBusinessId = localStorage.getItem("businessId");
-  const [socket, setSocket] = useState(null);
-  const [patientName, setPatientName] = useState("");
-  const [queueLength, setQueueLength] = useState("");
+  const doctorObjectStore = useSelector((state) => state.doctorObjectStore)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(loadDoctorObjThunk({ business: props.business_id, doctor: props.id }));
 
-  let store = useSelector((state) => state);
-  console.log(store);
-
-  // useEffect(() => {
-  //   loadBusinessObjThunk(currentBusinessId);
-  // }, []);
+  }, [loadDoctorObjThunk])
 
   console.log(props);
+  console.log(doctorObjectStore)
+  const queue = doctorObjectStore.queue[0]
   return (
     <div>
       <p>more info</p>
-      {/* {socket.on("UPDATE_DOCTOR", (data) => {
-        
-      })} */}
-      <p>
-        Dr. {props.f_name} {props.l_name}
-      </p>
-      <p>{patientName}</p>
-      <p>{queueLength}</p>
-
-      <Button
-        onClick={() => {
-          socket.emit("NEXT", {
-            business: props.business_id,
-            doctor: props.id,
-          });
-        }}
-      >
-        Next
-      </Button>
+      {/* {doctorObjectStore.queue.map((e) => <h1>{e.f_name}</h1>)} */}
+      {queue.f_name}{" "}
+      {queue.l_name}<br />
+      {queue.dob}<br /> {/** get age? */}
+      {queue.gender}<br />
+      {queue.history}<br />
+      {queue.phone}<br />
+      {queue.hkid}<br />
+      {queue.drug_allergy}<br />
+      <button>Next Patient</button>
     </div>
   );
 }
