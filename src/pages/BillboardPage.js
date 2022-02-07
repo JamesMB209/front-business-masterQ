@@ -18,7 +18,7 @@ const Billboard = () => {
 
   useEffect(() => {
     dispatch(loadBusinessObjThunk(currentBusinessId));
-  }, []);
+  }, [businessObjectStore]);
   delete businessObjectStore.data;
   delete businessObjectStore.pharmacy;
 

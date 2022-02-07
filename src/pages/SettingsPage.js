@@ -3,6 +3,7 @@ import ChangePasswordComponent from '../component/ChangePasswordComponent';
 import ChangeDoctorStatusComponent from '../component/ChangeDoctorStatusComponent'
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
+import ChangeDoctorRoomComponent from '../component/ChangeDoctorRoomComponent';
 
 const Settings = () => {
 
@@ -19,6 +20,7 @@ const Settings = () => {
         <div>
             <p>Hi! Welcome to Settings!</p>
             <ChangePasswordComponent />
+            <ChangeDoctorRoomComponent />
             <ChangeDoctorStatusComponent />
         </div>
     );

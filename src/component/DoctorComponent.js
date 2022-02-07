@@ -7,7 +7,7 @@ import { emit, socket, UPDATE_PATIENT } from "../redux/webSocets/actions";
 export default function DoctorComponent(props) {
   const doctorObjectStore = useSelector((state) => state.doctorObjectStore);
   const dispatch = useDispatch();
-  const connection = { business: "1", doctor: "1" }; // make it a string?
+  const connection = { business: props.business_id, doctor: props.id }; // make it a string?
 
   useEffect(() => {
     socket.on(UPDATE_PATIENT, () => {
@@ -49,12 +49,12 @@ export default function DoctorComponent(props) {
   return (
     <div>
       <p>more info</p>
-      {doctorObjectStore.queue.length != 0 ? doctorObjectStore.queue
+      {doctorObjectStore.queue ? doctorObjectStore.queue
         .filter(
           (currentPatient) => currentPatient == doctorObjectStore.queue[0]
         )
         .map((patient) => {
-          <div key={patient.id}>
+          return <div key={patient.id}>
             <p>
               {patient.f_name} {patient.l_name}
             </p>

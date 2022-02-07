@@ -36,12 +36,12 @@ export const changeDoctorStatus = (active, reason) => async (dispatch) => {
     }
 }
 
-export const changeDoctorRoom = (room) => async (dispatch) => {
+export const changeDoctorRoom = (room, id) => async (dispatch) => {
     try {
-        const response = await axios.post(`${process.env.REACT_API_APP_SERVER}/api/update`, {
-            room: room
+        const response = await axios.post(`${process.env.REACT_APP_API_SERVER}/setting/room`, {
+            room: room, id: id
         })
-        dispatch({type: CHANGE_DOCTOR_ROOM_SUCCESS, data: room})
+        dispatch({type: CHANGE_DOCTOR_ROOM_SUCCESS, data: {room, id}})
         console.log(response)
     } catch (err) {
         console.log(err)
