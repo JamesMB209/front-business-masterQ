@@ -23,7 +23,9 @@ const Doctor = () => {
     }
     dispatch(loadApiThunk());
     dispatch(loadBusinessObjThunk(currentBusinessId));
-  }, [auth, navigate]);
+    dispatch(loadDoctorObjThunk({ business: currentBusinessId, doctor: 1 }));
+
+  }, [auth, navigate, doctorSelected]);
 
   return (
     <div>

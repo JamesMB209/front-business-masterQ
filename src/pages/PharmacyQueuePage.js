@@ -19,12 +19,12 @@ const PharmacyQueuePage = () => {
 
   useEffect(() => {
     dispatch(loadBusinessObjThunk(currentBusinessId));
-  }, [loadBusinessObjThunk]);
+  }, []);
 
   return (
     <div>
       pharmacyQ
-      {/* <PharmacyQueueComponent {...businessObjectStore} /> */}
+      <PharmacyQueueComponent {...businessObjectStore} />
     </div>
   );
 };
