@@ -17,9 +17,6 @@ const PharmacyQueuePage = () => {
     }
   }, [auth, navigate]);
 
-  useEffect(() => {
-    dispatch(loadBusinessObjThunk(currentBusinessId));
-  }, [businessObjectStore]);
 
   return (
     <div>

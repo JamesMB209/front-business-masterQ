@@ -1,50 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Button } from "react-bootstrap";
-import { loadDoctorObjThunk } from "../redux/doctorObj/actions";
-import { emit, socket, UPDATE_PATIENT } from "../redux/webSocets/actions";
+
+import { emit, NEXT } from "../redux/webSocets/actions";
 
 export default function DoctorComponent(props) {
   const doctorObjectStore = useSelector((state) => state.doctorObjectStore);
-  const dispatch = useDispatch();
-  const connection = { business: props.business_id, doctor: props.id }; // make it a string?
+  const business = useSelector((state) => state.businessObjectStore)
 
-  useEffect(() => {
-    socket.on(UPDATE_PATIENT, () => {
-      dispatch(loadDoctorObjThunk(connection));
-    });
-    return () => {
-      socket.off(UPDATE_PATIENT);
-    };
-  }, [connection, dispatch]);
   const clickDoctor = () => {
-    emit("NEXT", connection);
+    emit(NEXT, { doctor: props.id });
   };
-  console.log(props);
-  console.log(doctorObjectStore.queue);
-  ///////////////////////////////////////////////////////////////////////////////////////
-  // /** Set up listners */
-  // useEffect(() => {
-  //   if ([CHECKIN, DOCTOR, PHARMACY].includes(state)) {
-  //     socket.on(UPDATE_PATIENT, () => {
-  //       dispatch(loadObjThunk(connection));
-  //     });
-  //   }
-  //   return () => {
-  //     socket.off(UPDATE_PATIENT);
-  //   };
-  // }, [state, connection, dispatch]);
-  //
-  // /** TESTING CODE FOR A FAKE DOCTOR AND PHARMACY BUTTON TO BE REMOVED */
-  // const clickPharmacy = () => {
-  //   emit("NEXT", { business: connection.business, doctor: "pharmacy" });
-  // };
-  // /** TESTING CODE FOR A FAKE DOCTOR AND PHARMACY BUTTON TO BE REMOVED */
-  // const clickDoctor = () => {
-  //   emit("NEXT", connection);
-  // };
-  // /** TESTING CODE FOR A FAKE DOCTOR AND PHARMACY BUTTON TO BE REMOVED */
-  ///////////////////////////////////////////////////////////////////////////////////////
+
+  // console.log(props);
+  console.log(business);
+
 
   return (
     <div>
@@ -54,6 +23,7 @@ export default function DoctorComponent(props) {
           (currentPatient) => currentPatient == doctorObjectStore.queue[0]
         )
         .map((patient) => {
+          // return <p>doctor component line 59</p>
           return <div key={patient.id}>
             <p>
               {patient.f_name} {patient.l_name}

@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import BillboardComponent from "../component/BillboardComponent";
 import { loadBusinessObjThunk } from "../redux/businessObj/actions";
 import { useNavigate } from "react-router-dom";
+import { socket } from "../redux/webSocets/actions";
+
 
 const Billboard = () => {
   let currentBusinessId = localStorage.getItem("businessId");
@@ -16,9 +18,19 @@ const Billboard = () => {
     }
   }, [auth, navigate]);
 
+  // useEffect(() => {
+  //   dispatch(loadBusinessObjThunk(currentBusinessId));
+  // }, [businessObjectStore]);
+
   useEffect(() => {
+    socket.on('UPDATE_BUSINESS', () => {
     dispatch(loadBusinessObjThunk(currentBusinessId));
-  }, [businessObjectStore]);
+});
+    return () => {
+      socket.off('UPDATE_BUSINESS');
+    };
+  });
+
   delete businessObjectStore.data;
   delete businessObjectStore.pharmacy;
 

@@ -9,10 +9,7 @@ export function loadBusinessObjThunk (business) {
             return axios({
                 method: 'post',
                 url: `${process.env.REACT_APP_API_SERVER}/obj/business`,
-                headers: { Authorization: `Bearer ${token}`},
-                data: {
-                    business: business
-                }
+                headers: { Authorization: `Bearer ${token}`}
             }).then((response) => {
                 console.log(response)
                 delete response.data.data

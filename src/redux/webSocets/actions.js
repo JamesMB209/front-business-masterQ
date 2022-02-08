@@ -4,7 +4,7 @@ import io from "socket.io-client";
 export const UPDATE_BUSINESS = "UPDATE_BUSINESS";
 
 /** Set up socket emitters **/
-export const UPDATE_PATIENT = "UPDATE_PATIENT";
+export const NEXT = "NEXT";
 
 const messageTypes = [].reduce((accum, msg) => {
   accum[msg] = msg;

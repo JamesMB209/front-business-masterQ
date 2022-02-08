@@ -16,14 +16,14 @@ const Doctor = () => {
   const apiStore = useSelector((state) => state.apiStore);
   const [doctorSelected, setDoctorSelected] = useState("");
   const currentBusinessId = localStorage.getItem("businessId");
-  useEffect(() => {
-    if (auth !== true) {
-      navigate("/login");
-    }
-    dispatch(loadApiThunk());
-    dispatch(loadBusinessObjThunk(currentBusinessId));
-    // dispatch(loadDoctorObjThunk({ business: currentBusinessId, doctor: 1 }));
-  }, [auth, navigate, doctorSelected]);
+  // useEffect(() => {
+  //   if (auth !== true) {
+  //     navigate("/login");
+  //   }
+  //   dispatch(loadApiThunk());
+  //   dispatch(loadBusinessObjThunk(currentBusinessId));
+  //   // dispatch(loadDoctorObjThunk({ business: currentBusinessId, doctor: 1 }));
+  // }, [auth, navigate, doctorSelected]);
 
   return (
     <div>

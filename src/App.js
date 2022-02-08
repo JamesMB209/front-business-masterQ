@@ -11,6 +11,10 @@ import { logOutThunk } from "./redux/auth/actions";
 import { Navbar, NavItem, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
+import {socket, emit } from "./redux/webSocets/actions";
+import { loadBusinessObjThunk } from "./redux/businessObj/actions";
+import { loadApiThunk } from "./redux/api/actions";
+
 //pris added:
 import {
   CDBSidebar,
@@ -27,6 +31,20 @@ function App() {
   let isAuthenticated = useSelector((state) => state.authStore.isAuthenticated);
   const dispatch = useDispatch();
 
+
+  useEffect(() => {
+    socket.on("UPDATE_BUSINESS", () => {
+      dispatch(loadBusinessObjThunk());
+    });
+
+    dispatch(loadApiThunk());
+
+    return () => {
+      socket.off("UPDATE_BUSINESS");
+    };
+  });
+
+
   return (
     <BrowserRouter>
       <div
@@ -35,7 +53,7 @@ function App() {
         <CDBSidebar textColor="#3E87A7 " backgroundColor="#EBF9FA;">
           {/* <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
             <a href="/" className="text-decoration-none" style={{ color: 'inherit' }}>
-              MasterQ
+            MasterQ
             </a>
           </CDBSidebarHeader> */}
 
@@ -44,6 +62,12 @@ function App() {
           </CDBSidebarHeader>
 
           <CDBSidebarContent className="sidebar-content">
+          <button onClick={() => {
+            emit("NEXT", {business:1, doctor:1});
+            console.log("clicked");
+            }}>Dr. Peram next button</button>
+
+          
             <CDBSidebarMenu>
               <Link to="/pharmacyqueue" activeClassName="activeClicked">
                 <CDBSidebarMenuItem className="sidebar-icon" icon="building">
