@@ -6,19 +6,17 @@ import { loginThunkSuccess, loginFacebookThunk } from "../redux/auth/actions";
 import Button from 'react-bootstrap/Button'; */
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import login_img from '../assets/6.png';
+import { loadBusinessObjThunk } from "../redux/businessObj/actions";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
-
-  const auth = useSelector((state) => state.authStore.isAuthenticated);
-  const navigate = useNavigate();
-
   const login = (e) => {
     e.preventDefault()
     dispatch(loginThunkSuccess(email, password));
+    dispatch(loadBusinessObjThunk())
   };
 
   return (

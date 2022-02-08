@@ -11,7 +11,7 @@ import { logOutThunk } from "./redux/auth/actions";
 import { Navbar, NavItem, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
-import {socket, emit } from "./redux/webSocets/actions";
+import { socket, emit } from "./redux/webSocets/actions";
 import { loadBusinessObjThunk } from "./redux/businessObj/actions";
 import { loadApiThunk } from "./redux/api/actions";
 
@@ -23,27 +23,26 @@ import {
   CDBSidebarHeader,
   CDBSidebarMenu,
   CDBSidebarMenuItem,
-} from 'cdbreact';
+} from "cdbreact";
 
-import logo from './assets/logo-blue.png'
+import logo from "./assets/logo-blue.png";
 
 function App() {
   let isAuthenticated = useSelector((state) => state.authStore.isAuthenticated);
   const dispatch = useDispatch();
 
+  dispatch(loadApiThunk());
 
   useEffect(() => {
+    dispatch(loadBusinessObjThunk());
     socket.on("UPDATE_BUSINESS", () => {
       dispatch(loadBusinessObjThunk());
     });
-
-    dispatch(loadApiThunk());
 
     return () => {
       socket.off("UPDATE_BUSINESS");
     };
   });
-
 
   return (
     <BrowserRouter>
@@ -62,12 +61,31 @@ function App() {
           </CDBSidebarHeader>
 
           <CDBSidebarContent className="sidebar-content">
-          <button onClick={() => {
-            emit("NEXT", {business:1, doctor:1});
-            console.log("clicked");
-            }}>Dr. Peram next button</button>
+            <button
+              onClick={() => {
+                emit("NEXT", { business: 1, doctor: 1 });
+                console.log("clicked");
+              }}
+            >
+              Dr. Peram next button
+            </button>
+            <button
+              onClick={() => {
+                emit("NEXT", { business: 1, doctor: 2 });
+                console.log("clicked");
+              }}
+            >
+              Dr. Pris next button
+            </button>
+            <button
+              onClick={() => {
+                emit("NEXT", { business: 1, doctor: 3 });
+                console.log("clicked");
+              }}
+            >
+              Dr. James next button
+            </button>
 
-          
             <CDBSidebarMenu>
               <Link to="/pharmacyqueue" activeClassName="activeClicked">
                 <CDBSidebarMenuItem className="sidebar-icon" icon="building">

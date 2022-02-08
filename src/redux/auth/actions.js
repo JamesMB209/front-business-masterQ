@@ -39,7 +39,6 @@ export const loginThunkSuccess = (email, password) => async (dispatch) => {
       });
     } else {
       localStorage.setItem("token", data.token);
-      localStorage.setItem("businessId", data.config.id);
       console.log(data)
       dispatch({ type: LOGIN_SUCCESS_ACTION });
     }
@@ -52,6 +51,5 @@ export const loginThunkSuccess = (email, password) => async (dispatch) => {
 
 export const logOutThunk = () => (dispatch) => {
   localStorage.clear("token");
-  localStorage.clear("businessId")
   dispatch({ type: LOGOUT_NOW_ACTION })
 }

@@ -1,43 +1,36 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 
 import { emit, NEXT } from "../redux/webSocets/actions";
 
 export default function DoctorComponent(props) {
-  const doctorObjectStore = useSelector((state) => state.doctorObjectStore);
-  const business = useSelector((state) => state.businessObjectStore)
+  const business = useSelector((state) => state.businessObjectStore);
 
   const clickDoctor = () => {
     emit(NEXT, { doctor: props.id });
   };
-
-  // console.log(props);
+  console.log(props);
   console.log(business);
-
-
+  let doctor = business[`${props.id}`];
+  console.log(doctor);
   return (
     <div>
-      <p>more info</p>
-      {doctorObjectStore.queue ? doctorObjectStore.queue
-        .filter(
-          (currentPatient) => currentPatient == doctorObjectStore.queue[0]
-        )
-        .map((patient) => {
-          // return <p>doctor component line 59</p>
-          return <div key={patient.id}>
-            <p>
-              {patient.f_name} {patient.l_name}
-            </p>
-            <p>{patient.dob}</p>
+      <br />
+      {doctor == undefined
+        ? "Select Doctor to continue" : doctor.queue.length !== 0 ? 
+        doctor.queue.filter((first) => first == doctor.queue[0]).map((patient) => {
+          return <div>
+            <h2>Dr. {doctor.fullName}</h2>
+            <p>{patient.f_name} {patient.l_name}</p>
             <p>{patient.gender}</p>
-            <p>{patient.history}</p>
-            <p>{patient.phone}</p>
+            <p>{patient.dob}</p>
             <p>{patient.hkid}</p>
+            <p>{patient.email}</p>
             <p>{patient.drug_allergy}</p>
-          </div>;
-        }) : "No more patients in the queue."}
-        <br />
-      <button onClick={clickDoctor}>Next Patient</button>
+            <button onClick={clickDoctor}>Next Patient</button>
+          </div>
+        }) : <h2>No patients in queue for Dr. {doctor.fullName} </h2>}
+      <br />
     </div>
   );
 }

@@ -1,8 +1,6 @@
 import { LOAD_BUSINESS_FAILURE, LOAD_BUSINESS_OBJECT_SUCCESS } from "./actions";
 
-let initialState = {
-  data: [],
-};
+let initialState = {};
 
 export const businessObjectReducer = (state = initialState, action) => {
   switch (action.type) {

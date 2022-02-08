@@ -5,7 +5,8 @@ import { changeDoctorRoom } from "../redux/settings/actions";
 
 const ChangeDoctorRoomComponent = () => {
   const doctors = useSelector((state) => state.apiStore.doctors);
-  const currentBusinessId = localStorage.getItem("businessId");
+  const business = useSelector((state) => state.businessObjectStore);
+
   const [roomNumber, setRoomNumber] = useState("");
   const dispatch = useDispatch();
 
@@ -16,7 +17,7 @@ const ChangeDoctorRoomComponent = () => {
       {doctors
         ? doctors
             .filter((filter) => {
-              return filter.business_id == currentBusinessId;
+              return filter.business_id == business[1].businessID;
             })
             .map((doctor, i) => {
               return (
@@ -39,8 +40,6 @@ const ChangeDoctorRoomComponent = () => {
               );
             })
         : "ruh"}
-      <p>Settings Component - Modify Doctors</p>
-      Hello!, Hello! 1. Change active/employed status
     </div>
   );
 };

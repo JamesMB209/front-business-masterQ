@@ -7,7 +7,6 @@ import ChangeDoctorRoomComponent from '../component/ChangeDoctorRoomComponent';
 
 const Settings = () => {
 
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const auth = useSelector((state) => state.authStore.isAuthenticated);

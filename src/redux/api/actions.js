@@ -8,16 +8,25 @@ export const LOAD_FAILURE = "LOAD_FAILURE";
 export function loadApiThunk() {
   return (dispatch) => {
     let token = localStorage.getItem("token");
-    return axios
-      .get(`${process.env.REACT_APP_API_SERVER}/api/config`, {
-        headers: { Authorization: `Bearer ${token}` }})
+    return axios({
+      method: "post",
+      url: `${process.env.REACT_APP_API_SERVER}/obj/business`,
+      headers: { Authorization: `Bearer ${token}` },
+    })
       .then((response) => {
-        dispatch({ type: LOAD_SUCCESS_API, data: response.data });
-        console.log(response.data);
+        console.log(response);
+        let data = Object.values(response.data)
+          .filter((doctor) => doctor.fullName)
+          .map((doctor) => {
+            return { id: doctor.id, name: doctor.fullName };
+          });
+        console.log(data);
+        dispatch({ type: LOAD_SUCCESS_API, data: data });
       })
       .catch((err) => {
         console.log(err);
+        dispatch({ type: LOAD_FAILURE });
       });
   };
 }
-
+// }
