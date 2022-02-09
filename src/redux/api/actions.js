@@ -1,3 +1,5 @@
+// for return doctors id and name for displaying
+
 import axios from "axios";
 
 export const LOAD_SUCCESS_API = "LOAD_SUCCESS_API";

@@ -6,7 +6,6 @@ import {
 } from "./actions";
 
 let initialState = {
-  data: [],
 };
 
 export const settingsReducer = (state = initialState, action) => {
@@ -15,13 +14,14 @@ export const settingsReducer = (state = initialState, action) => {
       console.log("success in reducers");
       return Object.assign({}, state, action.data);
     case CHANGE_DOCTOR_STATUS_SUCCESS:
-      console.log();
+      console.log("clickclick");
     case CHANGE_DOCTOR_ROOM_SUCCESS:
       console.log("change doctor room success");
+      return Object.assign({}, state, action.data)
     case CHANGE_PASSWORD_FAILURE:
       console.log("Fail Dail");
       return state;
     default:
-      break;
+      return state;
   }
 };

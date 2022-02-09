@@ -1,9 +1,11 @@
+// return server class with the business data
+
 import axios from 'axios';
 
 export const LOAD_BUSINESS_OBJECT_SUCCESS = "LOAD_BUSINESS_OBJECT_SUCCESS";
 export const LOAD_BUSINESS_FAILURE = "LOAD_BUSINESS_FAILURE";
 
-export function loadBusinessObjThunk (business) {
+export function loadBusinessObjThunk () {
     return (dispatch) => {
         let token = localStorage.getItem("token");
             return axios({

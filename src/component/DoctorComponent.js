@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 import { emit, NEXT } from "../redux/webSocets/actions";
 
 export default function DoctorComponent(props) {
   const business = useSelector((state) => state.businessObjectStore);
+  const [diagnosis, setDiagnosis] = useState("")
 
   const clickDoctor = () => {
     emit(NEXT, { doctor: props.id });
@@ -27,7 +28,9 @@ export default function DoctorComponent(props) {
             <p>{patient.hkid}</p>
             <p>{patient.email}</p>
             <p>{patient.drug_allergy}</p>
+            <input type="text" value={diagnosis} onChange={(e) => setDiagnosis(e.target.value)}/>
             <button onClick={clickDoctor}>Next Patient</button>
+            {diagnosis}
           </div>
         }) : <h2>No patients in queue for Dr. {doctor.fullName} </h2>}
       <br />
