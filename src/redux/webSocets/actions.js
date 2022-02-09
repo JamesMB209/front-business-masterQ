@@ -5,6 +5,7 @@ export const UPDATE_BUSINESS = "UPDATE_BUSINESS";
 
 /** Set up socket emitters **/
 export const NEXT = "NEXT";
+export const RELOAD = "RELOAD";
 
 const messageTypes = [].reduce((accum, msg) => {
   accum[msg] = msg;

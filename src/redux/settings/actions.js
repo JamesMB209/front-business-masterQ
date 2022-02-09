@@ -4,10 +4,12 @@ import axios from "axios";
 export const CHANGE_PASSWORD_SUCCESS = "CHANGE_PASSWORD_SUCCESS";
 export const CHANGE_DOCTOR_STATUS_SUCCESS = "CHANGE_DOCTOR_STATUS_SUCCESS";
 export const CHANGE_DOCTOR_ROOM_SUCCESS = "CHANGE_DOCTOR_ROOM_SUCCESS";
+export const GET_DOCTORS_SUCCESS = "GET_DOCTORS_SUCCESS";
 
 export const CHANGE_PASSWORD_FAILURE = "CHANGE_PASSWORD_FAILURE";
 export const CHANGE_DOCTOR_STATUS_FAILURE = "CHANGE_DOCTOR_STATUS_FAILURE";
 export const CHANGE_DOCTOR_ROOM_FAILURE = "CHANGE_DOCTOR_ROOM_FAILURE";
+export const GET_DOCTOR_FAILURE = "GET_DOCTOR_FAILURE"
 
 export const changePasswordThunk = (secret, password) => async (dispatch) => {
   try {
@@ -62,3 +64,16 @@ export const changeDoctorRoom = (room, id) => async (dispatch) => {
     dispatch({ type: CHANGE_DOCTOR_ROOM_FAILURE });
   }
 };
+
+export const getAllDoctors = () => async (dispatch) => {
+  try {
+    let token = localStorage.getItem("token")
+    const response = await axios.get(`${process.env.REACT_APP_API_SERVER}/setting/alldoctors`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    console.log(response.data)
+    dispatch({type: GET_DOCTORS_SUCCESS, data: response.data})
+  } catch (err) {
+    console.log(err)
+  }
+}
