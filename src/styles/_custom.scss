@@ -1,6 +1,7 @@
 $blueOne: #00c4cc;
 $blueTwo: #3E87A7;
 $blueThree: #006c72;
+$blueLight: #EBF9FA;
 
 $white: white;
 
@@ -16,6 +17,14 @@ $theme-colors: (
     margin-left: auto;
     margin-right: auto;
 }
+
+@mixin center-left {
+    display: flex; 
+    align-items: center;
+    padding-left: 30px;
+}
+
+
 
 h5 {
     color: $blueTwo;
@@ -43,6 +52,19 @@ h5 {
     background-color: $blueThree !important;
 }
 
+.buttonDanger {
+    color: white !important;
+    background-color: #ca3915 !important;
+    min-width: 250px !important;
+    margin-bottom: 5px !important;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.buttonDanger:hover {
+    color: white !important;
+    background-color: #912b12 !important;
+}
+
 .buttonTwo {
     color: white !important;
     background-color: $blueTwo !important;
@@ -54,6 +76,11 @@ h5 {
 .buttonTwo:hover {
     color: white !important;
     background-color: $blueThree !important;
+}
+
+.icon_hover:hover {
+    color: $blueThree;
+    cursor: pointer;
 }
 
 /* import bootstrap to set changes at bottom */

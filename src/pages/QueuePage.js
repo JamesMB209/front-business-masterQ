@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import QueueComponent from "../component/QueueComponent";
+import { Container, Row, Col, Card } from "react-bootstrap";
+import SearchBar from "../component/SearchComponent";
 
 const Queue = () => {
   // const dispatch = useDispatch();
@@ -13,10 +15,15 @@ const Queue = () => {
     }
   }, [auth, navigate]);
   return (
-    <div>
-      <p>Hi! Welcome to Queue!</p>
-      <QueueComponent />
+    <>
+    <Container fluid>
+    <div className='search_header'>
+      <h3 className='' >Queue Management</h3>
     </div>
+  
+     <QueueComponent />
+     </Container>
+     </>
   );
 };
 
