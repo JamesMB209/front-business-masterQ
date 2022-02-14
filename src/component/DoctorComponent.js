@@ -90,12 +90,10 @@ export default function DoctorComponent(props) {
                   )
                 })
               }
-              <input type="text" value={diagnosis} onChange={(e) => setDiagnosis(e.target.value)} />
-              <button onClick={clickDoctor}>Next Patient</button>
-              {diagnosis}
               <Form>
                 {drugInventry.map((drugOBJ, index) => (
                   <Form.Check
+                  key={`drug-key-${index}`}
                     name="drugs"
                     type="checkbox"
                     onChange={onChangePrescription}
