@@ -31,6 +31,11 @@ h5 {
     @include center-all;
 }
 
+h4 {
+    color: $white;
+    @include center-all;
+}
+
 .under-line {
     color: $blueOne;
     height: 3px !important;
@@ -38,6 +43,9 @@ h5 {
     margin-top: -9px !important;
     @include center-all;
 }
+
+
+
 
 .buttonOne {
     color: white !important;

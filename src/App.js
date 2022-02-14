@@ -87,11 +87,7 @@ function App() {
             </button>
 
             <CDBSidebarMenu>
-              <Link to="/pharmacyqueue" activeClassName="activeClicked">
-                <CDBSidebarMenuItem className="sidebar-icon" icon="building">
-                  <h6>Pharmacy Queue</h6>
-                </CDBSidebarMenuItem>
-              </Link>
+            
 
               <Link to="/billboard" activeClassName="activeClicked">
                 <CDBSidebarMenuItem className="sidebar-icon" icon="tv">
@@ -120,6 +116,12 @@ function App() {
                   icon="people-arrows"
                 >
                   <h6>Queue</h6>
+                </CDBSidebarMenuItem>
+              </Link>
+
+              <Link to="/pharmacyqueue" activeClassName="activeClicked">
+                <CDBSidebarMenuItem className="sidebar-icon" icon="building">
+                  <h6>Pharmacy</h6>
                 </CDBSidebarMenuItem>
               </Link>
 
