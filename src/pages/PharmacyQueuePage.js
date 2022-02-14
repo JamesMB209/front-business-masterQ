@@ -24,15 +24,15 @@ const PharmacyQueuePage = () => {
 
   return (
     <div className="col">
-      <div className="rpw">
+      <div className="row">
         Inventry Stock
-        {drugInventry.map((drug) => (
-        <p>{drug.drug}, dosage:{drug.dosage}, price:{drug.price} In stock = {drug.stock}</p>
+        {drugInventry.map((drug, index) => (
+        <p key={`key-drug-inventry-${index}`}>{drug.drug}, dosage:{drug.dosage}, price:{drug.price} In stock = {drug.stock}</p>
       ))}
       </div>
       {businessObject.pharmacy.queue =! undefined
-        ? businessObject.pharmacy.queue.slice(0, 3).map((patient) => (
-          <PharmacyQueueComponent {...patient} />
+        ? businessObject.pharmacy.queue.slice(0, 3).map((patient, index) => (
+          <PharmacyQueueComponent key={`key-patient-${index}`} {...patient} />
         ))
         : "Nobody waiting."
       }
