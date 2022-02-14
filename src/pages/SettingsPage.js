@@ -21,8 +21,9 @@ const Settings = () => {
   }, [auth, navigate]);
 
   dispatch(getAllDoctors())
-const reloadButton = () => {
+const reloadButton = (e) => {
   emit(RELOAD)
+  window.location.reload()
 }
 
     return (
@@ -31,7 +32,7 @@ const reloadButton = () => {
             <ChangePasswordComponent />
             <ChangeDoctorRoomComponent />
             <ChangeDoctorStatusComponent />
-            <Button variant='danger' onClick={reloadButton}>Reload</Button>
+            <Button variant='danger' onClick={(e) => reloadButton()}>Reload</Button>
         </div>
     );
 };

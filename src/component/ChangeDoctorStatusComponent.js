@@ -17,9 +17,19 @@ const ChangeDoctorStatusComponent = () => {
       {settings.filter((e) => e.employed !== false).map((e) => {
         return (
           <div>
-            <p>{e.f_name}</p>
+            <p>Dr. {e.f_name} {e.l_name}</p>
             <button onClick={() => dispatch(changeDoctorStatus(e.id, false, true))}>Not working today/Inactive</button>
             <button onClick={() => dispatch(changeDoctorStatus(e.id, false, false))}>Unemployed</button>
+            <button onClick={() => dispatch(changeDoctorStatus(e.id, true, true))}>Working today/Active</button>
+          </div>
+        )
+      })}
+      <p>List of Inactive doctors</p>
+      {settings.filter((e) => e.employed !== true).map((e) => {
+        return (
+          <div>
+            <p>Dr. {e.f_name} {e.l_name}</p>
+            <button onClick={() => dispatch(changeDoctorStatus(e.id, true, true))}>Bring me back!</button>
           </div>
         )
       })}
