@@ -8,6 +8,7 @@ import { searchReducer } from "./search/reducers";
 import {businessObjectReducer} from "./businessObj/reducers"
 import { emit, init } from "./webSocets/actions";
 import { settingsReducer } from "./settings/reducers";
+import { pharmacyReducer } from "./pharmacyStock/reducers";
 
 const rootReducer = combineReducers({
   authStore: authReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   searchStore: searchReducer,
   businessObjectStore: businessObjectReducer,
   settingsStore: settingsReducer,
+  pharmacyStore: pharmacyReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
