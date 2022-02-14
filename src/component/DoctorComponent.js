@@ -1,37 +1,86 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
+import { getHistory, postDiagnosis } from "../redux/patientHistory/actions";
+import Accordion from "react-bootstrap/Accordion";
 import { emit, NEXT } from "../redux/webSocets/actions";
 
 export default function DoctorComponent(props) {
   const business = useSelector((state) => state.businessObjectStore);
   const [diagnosis, setDiagnosis] = useState("")
-
+  const [appointmentHistortId, setAppointmentHistoryId] = useState(null)
+  const [patientId, setPatientId] = useState("")
+  const [sickLeave, setSickLeave] = useState(false)
+  const [followUp, setFollowUp] = useState(false)
+//  const history = useSelector((state) => state.historyStore);
   const clickDoctor = () => {
     emit(NEXT, { doctor: props.id });
+
   };
-  console.log(props);
-  console.log(business);
+  // console.log(props);
+  // console.log(business);
   let doctor = business[`${props.id}`];
-  console.log(doctor);
+  const [patient, setPatient] = useState("")
+  
+  console.log(patient)
+  // console.log(doctor);
+  // console.log(history)
   return (
     <div>
+      {/* {history[0] === undefined ? "fuckoff" : "still fuckoff"} */}
       <br />
       {doctor == undefined
         ? "Select Doctor to continue" : doctor.queue.length !== 0 ? 
         doctor.queue.filter((first) => first == doctor.queue[0]).map((patient) => {
-          return <div>
-            <h2>Dr. {doctor.fullName}</h2>
-            <p>{patient.f_name} {patient.l_name}</p>
-            <p>{patient.gender}</p>
-            <p>{patient.dob}</p>
-            <p>{patient.hkid}</p>
-            <p>{patient.email}</p>
-            <p>{patient.drug_allergy}</p>
-            <input type="text" value={diagnosis} onChange={(e) => setDiagnosis(e.target.value)}/>
-            <button onClick={clickDoctor}>Next Patient</button>
-            {diagnosis}
-          </div>
+          return (
+            <div>
+              <h2>Dr. {doctor.fullName}</h2>
+              <p>
+                {patient.f_name} {patient.l_name}
+              </p>
+              <p>{patient.gender}</p>
+              <p>{patient.dob}</p>
+              <p>{patient.hkid}</p>
+              <p>{patient.email}</p>
+              <p>{patient.drug_allergy}</p>
+              <input
+                type="text"
+                value={diagnosis}
+                onChange={(e) => {
+                  setDiagnosis(e.target.value)
+                  setPatientId(patient.id)
+                }}
+              />
+              <button onClick={clickDoctor}>Next Patient</button>
+              <button onClick={getHistory(patient.id)}>TEST</button>
+              <button
+                onClick={postDiagnosis(
+                  patient.appointmentHistoryID,
+                  diagnosis,
+                  true,
+                  true
+                )}
+              >
+                TEST SENDING
+              </button>
+              {/* {diagnosis} */}
+              {patient.history.length == 0 ? 
+              <p>"No history found for the patient"</p>: patient.history.map((patientHistory) => {
+                return (
+                  <div>
+                    <Accordion>
+                <Accordion.Item eventKey={patient.id}>
+                  <Accordion.Header>Previous Visit{patient.created_at}</Accordion.Header>
+                  <Accordion.Body>
+                    <p>Diagnosis: {patientHistory.diagnosis}</p>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
+                  </div>
+                )
+              })
+              }
+            </div>
+          );
         }) : <h2>No patients in queue for Dr. {doctor.fullName} </h2>}
       <br />
     </div>

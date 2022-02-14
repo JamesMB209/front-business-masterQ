@@ -6,15 +6,34 @@ import Card from "react-bootstrap/Card";
 
 import { CDBCard, CDBCardBody, CDBDataTable, CDBContainer } from "cdbreact";
 
-
 const SearchBar = (props) => {
   const [searchPatients, setSearchPatients] = useState("");
   const dispatch = useDispatch();
-
+  const newProps = [];
   useEffect(() => {
     dispatch(loadPatientThunk());
   }, []);
+  const newA = props.searchingStore.map((patient) =>
+    newProps.push({
+      f_name: patient.f_name,
+      l_name: patient.l_name,
+      hkid: patient.hkid,
+      gender: patient.gender,
+      email: patient.email,
+      dob: patient.dob,
+      drug_allergy: patient.drug_allergy,
+    })
+  );
+  console.log("tgis is the prips serchcomponent line 18", props.searchingStore);
+  console.log(newProps);
 
+  const key = "hkid";
+
+  const arrayUniqueByKey = [
+    ...new Map(newProps.map((item) => [item[key], item])).values(),
+  ];
+
+  console.log(arrayUniqueByKey);
   return (
     <div>
       <input
@@ -23,8 +42,9 @@ const SearchBar = (props) => {
         onChange={(e) => setSearchPatients(e.target.value)}
         placeholder="Enter to search patient"
       />
-      {props.searchingStore
-        ? props.searchingStore
+      <br />
+      {arrayUniqueByKey
+        ? arrayUniqueByKey
             .filter((val) => {
               if (val == "" || searchPatients.trim() == "") {
                 return val;
@@ -44,7 +64,7 @@ const SearchBar = (props) => {
             .map((eachPatient, index) => {
               return (
                 <div key={index}>
-                    <CDBContainer>
+                  {/* <CDBContainer>
                         <CDBCard>
                           <CDBCardBody>
                             <CDBDataTable
@@ -59,34 +79,40 @@ const SearchBar = (props) => {
                             />
                           </CDBCardBody>
                         </CDBCard>
-                      </CDBContainer>
+                      </CDBContainer> */}
 
-                  {/* <Card style={{ width: "18rem" }}>
-                    {/* <Card.Img variant="top" src="holder.js/100px180" /> 
+                  <Card style={{ width: "18rem" }}>
+                    <Card.Img variant="top" src="holder.js/100px180" />
                     <Card.Body>
                       <Card.Title>
-                        <p className="patients_fullname">
+                        {/* <h5 className="patients_fullname"> */}
                           {eachPatient.f_name} {eachPatient.l_name}
-                        </p>
+                        {/* </h5> */}
                       </Card.Title>
 
                       <Card.Text>
-                        <p className="hkid">HKID: {eachPatient.hkid}</p>
+                        {/* <p className="hkid"> */}
+                          HKID: {eachPatient.hkid}
+                          {/* </p> */}
                       </Card.Text>
                       <Card.Text>
-                        <p className="email">e-mail: {eachPatient.email}</p>
+                        {/* <p className="email"> */}
+                          e-mail: {eachPatient.email}
+                          {/* </p> */}
                       </Card.Text>
                       <Card.Text>
-                        <p className="dob">Date of birth: {eachPatient.dob}</p>
+                        {/* <p className="dob"> */}
+                          Date of birth: {eachPatient.dob}
+                          {/* </p> */}
                       </Card.Text>
                       <Card.Text>
-                        <p className="drug_allergy">
+                        {/* <p className="drug_allergy"> */}
                           Allergies: {eachPatient.drug_allergy}
-                        </p>
+                        {/* </p> */}
                       </Card.Text>
-                      {/* <Button variant="primary">Go somewhere</Button>  a//////// add modal to check appointment history? 
+                      {/* <Button variant="primary">Go somewhere</Button>  a//////// add modal to check appointment history? */}
                     </Card.Body>
-                  </Card> */}
+                  </Card>
                 </div>
               );
             })
