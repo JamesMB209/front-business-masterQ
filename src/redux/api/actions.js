@@ -20,7 +20,7 @@ export function loadApiThunk() {
         let data = Object.values(response.data)
           .filter((doctor) => doctor.fullName)
           .map((doctor) => {
-            return { id: doctor.id, name: doctor.fullName };
+            return { id: doctor.id, name: doctor.fullName, room: doctor.room };
           });
         console.log(data);
         dispatch({ type: LOAD_SUCCESS_API, data: data });
