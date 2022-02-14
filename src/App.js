@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { socket, emit } from "./redux/webSocets/actions";
 import { loadBusinessObjThunk } from "./redux/businessObj/actions";
 import { loadApiThunk } from "./redux/api/actions";
+import { loadPharmacyStockThunk } from "./redux/pharmacyStock/actions";
 
 //pris added:
 import {
@@ -32,6 +33,7 @@ function App() {
   const dispatch = useDispatch();
 
   dispatch(loadApiThunk());
+  dispatch(loadPharmacyStockThunk())
 
   useEffect(() => {
     dispatch(loadBusinessObjThunk());
