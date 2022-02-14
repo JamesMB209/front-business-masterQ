@@ -6,6 +6,7 @@ import Card from "react-bootstrap/Card";
 
 import { CDBCard, CDBCardBody, CDBDataTable, CDBContainer } from "cdbreact";
 
+
 const SearchBar = (props) => {
   const [searchPatients, setSearchPatients] = useState("");
   const dispatch = useDispatch();
@@ -63,6 +64,7 @@ const SearchBar = (props) => {
             })
             .map((eachPatient, index) => {
               return (
+                <>
                 <div key={index}>
                   {/* <CDBContainer>
                         <CDBCard>
@@ -85,15 +87,13 @@ const SearchBar = (props) => {
                     <Card.Img variant="top" src="holder.js/100px180" />
                     <Card.Body>
                       <Card.Title>
-                        {/* <h5 className="patients_fullname"> */}
                           {eachPatient.f_name} {eachPatient.l_name}
-                        {/* </h5> */}
                       </Card.Title>
 
                       <Card.Text>
-                        {/* <p className="hkid"> */}
+                       
                           HKID: {eachPatient.hkid}
-                          {/* </p> */}
+                     
                       </Card.Text>
                       <Card.Text>
                         {/* <p className="email"> */}
@@ -114,10 +114,12 @@ const SearchBar = (props) => {
                     </Card.Body>
                   </Card>
                 </div>
+                </>
               );
-            })
+            }) 
         : "You dont have any patients!"}
     </div>
+  
   );
 };
 export default SearchBar;

@@ -2,6 +2,7 @@ $blueOne: #00c4cc;
 $blueTwo: #3E87A7;
 $blueThree: #006c72;
 $blueLight: #EBF9FA;
+$blueFour: #a6f0f5;
 
 $white: white;
 
@@ -36,12 +37,34 @@ h4 {
     @include center-all;
 }
 
+h3 {
+    color: $blueThree;
+    margin-top: 30px !important;
+    @include center-all;
+}
+
+h2 {
+    color: $blueOne;
+}
+
+.setting_title {
+    margin-left: 10px !important;
+}
+
 .under-line {
     color: $blueOne;
     height: 3px !important;
     width: 100px !important;
     margin-top: -9px !important;
     @include center-all;
+}
+
+.under-line-two {
+    color: $blueOne;
+    height: 3px !important;
+    width: 300px !important;
+    margin-top: -40px !important;
+    margin-left: 30px;
 }
 
 
@@ -62,7 +85,7 @@ h4 {
 
 .buttonDanger {
     color: white !important;
-    background-color: #ca3915 !important;
+    background-color: #ca4f31 !important;
     min-width: 250px !important;
     margin-bottom: 5px !important;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -70,7 +93,7 @@ h4 {
 
 .buttonDanger:hover {
     color: white !important;
-    background-color: #912b12 !important;
+    background-color: #85321d !important;
 }
 
 .buttonTwo {
@@ -86,10 +109,77 @@ h4 {
     background-color: $blueThree !important;
 }
 
+
+////short button/////
+.buttonOneSh {
+    color: white !important;
+    background-color: #00c4cc !important;
+    min-width: 150px !important;
+    margin-bottom: 5px !important;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.buttonOneSh:hover {
+    color: white !important;
+    background-color: $blueThree !important;
+}
+
+.buttonDangerSh {
+    color: white !important;
+    background-color: #ca4f31 !important;
+    min-width: 150px !important;
+    margin-bottom: 5px !important;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.buttonDangerSh:hover {
+    color: white !important;
+    background-color: #85321d !important;
+}
+
+.buttonTwoSh {
+    color: white !important;
+    background-color: $blueTwo !important;
+    min-width: 150px !important;
+    margin-bottom: 5px !important;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.buttonTwoSh:hover {
+    color: white !important;
+    background-color: $blueThree !important;
+}
+
+////////////
+
+.buttonThree {
+    color: white !important;
+    background-color: #00c4cc !important;
+    min-width: 200px !important;
+    margin-bottom: 5px !important;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.buttonThree:hover {
+    color: white !important;
+    background-color: $blueThree !important;
+}
+
 .icon_hover:hover {
     color: $blueThree;
     cursor: pointer;
 }
+
+.setting_input {
+    margin: 8px;
+    min-width: 250px;
+    border:1px solid $blueOne;
+    border-radius: 5px;
+}
+
+input[type=text]:focus {
+    border: 2px solid $blueTwo !important;
+  }
 
 /* import bootstrap to set changes at bottom */
 @import "~bootstrap/scss/bootstrap";
