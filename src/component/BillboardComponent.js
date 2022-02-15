@@ -30,17 +30,23 @@ const BillboardComponent = () => {
                 <h4>BIG FAT ERROR NO BUSINESS OBJECT STORE</h4>
               ) : (
               
-              
+                
                     <>
                     <div className='board_box'>
-                    <h5>Calling Patient:{doctorDetail.queue}  </h5>
-                    
-                    <h5>Patients in queue:{doctorDetail.queue}</h5>
+                    <h5 className='mt-5 pt-5'>
+                      Next Patient:
+                      </h5>
+                        <h3>
+                        {businessObjectStore[doctorDetail.id].queue[0].f_name} {businessObjectStore[doctorDetail.id].queue[1].l_name}
+                      </h3>
+
+                      <h5 className='mt-5'>Patients in queue: </h5>
+                        <h3>
+                        {businessObjectStore[doctorDetail.id].queue.length-1}
+                        </h3>
                     
                     </div>
                     </>
-                
-              
               )}
             </div>
             </Col>

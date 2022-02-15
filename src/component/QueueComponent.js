@@ -77,8 +77,8 @@ const QueueComponent = () => {
                       {/* !!!!!!!!!!ADD delete patient function here (patient id not correct) */}
                       <Button 
                       className='buttonDanger'  
-                      onClick={() => emit("DELETE", {doctor: doctorDetail.id,patientID:e.id})}
-                      /* onClick={handleClose} */>
+                      onClick={() => emit("DELETE", {doctor: doctorDetail.id,patientID:e.id}), handleClose}
+                      >
                         Delete Patient
                       </Button>
 
