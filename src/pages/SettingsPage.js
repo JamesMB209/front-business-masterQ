@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import ChangeDoctorRoomComponent from '../component/ChangeDoctorRoomComponent';
 import { emit, RELOAD } from '../redux/webSocets/actions';
-import { Button } from 'react-bootstrap';
+import { Button, Container, Card, Row, Col } from 'react-bootstrap';
 import { getAllDoctors } from "../redux/settings/actions";
 
 
@@ -27,13 +27,32 @@ const reloadButton = (e) => {
 }
 
     return (
-        <div>
-            <p>Hi! Welcome to Settings!</p>
+      <>
+      <Container>
+       
+            <h2 className='m-5'>Settings</h2>
+            <hr className='under-line-two'/>
+
+        <Row>
+          <Col md={12} lg={5}>
+            <Card body className='card_password'>
             <ChangePasswordComponent />
+            </Card>
+          </Col>
+
+          <Col md={12} lg={6}>
+            <Card body className='card_room'>
             <ChangeDoctorRoomComponent />
+            </Card>
+          </Col>
+        </Row>
+            <Card body className='card_status'>
             <ChangeDoctorStatusComponent />
-            <Button variant='danger' onClick={(e) => reloadButton()}>Reload</Button>
-        </div>
+            <Button className='buttonDanger' onClick={(e) => reloadButton()}>Reload</Button>
+            </Card>
+        
+        </Container>
+        </>
     );
 };
 

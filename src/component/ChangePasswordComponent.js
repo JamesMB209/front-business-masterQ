@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { changePasswordThunk } from '../redux/settings/actions';
+import { Card, Button } from 'react-bootstrap'
 
 const ChangePasswordComponent = () => {
   const [secret, setSecret] = useState("")
@@ -28,14 +29,20 @@ const ChangePasswordComponent = () => {
   }
 
   return (
+    <>
     <div>
-
-      <p>Settings Component - Change Password</p>
-      <input type="text" value={secret} onChange={(e) => {setSecret(e.target.value)
+    <Card.Title>
+      <h5 className='setting_title my-2'>Change Password</h5>
+      </Card.Title>
+      <input type="text" 
+      className='setting_input'
+      value={secret} 
+      onChange={(e) => {setSecret(e.target.value)
       setError(null)}} placeholder='Enter secret' />
       <br />
       <input
         type="text"
+        className='setting_input my-4'
         value={newPassword}
         onChange={(e) => {
           setError(null)
@@ -45,6 +52,7 @@ const ChangePasswordComponent = () => {
       <br />
       <input
         type="text"
+        className='setting_input'
         value={verifyNewPassword}
         onChange={(e) => setVerifyNewPassword(e.target.value)}
         placeholder='Confirm password'
@@ -52,11 +60,14 @@ const ChangePasswordComponent = () => {
       <br />
       {error}
       <br />
-      <button type="submit" onClick={() => changePassword()}>Change Password</button>
+      <Button type="submit" 
+      className='buttonOne mt-3'
+      onClick={() => changePassword()}>Change Password</Button>
       <br />
       <br />
 
     </div>
+    </>
   );
 };
 
