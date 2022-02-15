@@ -19,8 +19,8 @@ const Settings = () => {
       navigate("/login");
     }
   }, [auth, navigate]);
-
-  dispatch(getAllDoctors())
+  
+  // dispatch(getAllDoctors())
 const reloadButton = (e) => {
   emit(RELOAD)
   window.location.reload()

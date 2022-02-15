@@ -13,9 +13,6 @@ export function loadBusinessObjThunk () {
                 url: `${process.env.REACT_APP_API_SERVER}/obj/business`,
                 headers: { Authorization: `Bearer ${token}`}
             }).then((response) => {
-                console.log(response)
-                delete response.data.data
-                delete response.data.id
                 dispatch({type: LOAD_BUSINESS_OBJECT_SUCCESS, data: response.data})
             }).catch((err) => {
                 console.log(err)
