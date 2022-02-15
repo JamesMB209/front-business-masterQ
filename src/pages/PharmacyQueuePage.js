@@ -1,27 +1,31 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import PharmacyQueueComponent from "../component/PharmacyQueueComponent";
-import { loadBusinessObjThunk } from "../redux/businessObj/actions";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { pharmacyReducer } from "../redux/pharmacyStock/reducers";
+
 import { emit, NEXT } from "../redux/webSocets/actions";
 import { Container, Col, Row, Button, Card, Accordion } from "react-bootstrap";
 
 import { DataGrid } from '@mui/x-data-grid';
+import PharmacyQueueComponent from "../component/PharmacyQueueComponent";
 
-const PharmacyQueuePage = () => {
+export default function PharmacyQueuePage() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  /** Load inital states */
   const auth = useSelector((state) => state.authStore.isAuthenticated);
   const businessObject = useSelector((state) => state.businessObjectStore);
   const drugInventory = useSelector((state) => state.pharmacyStore);
-  const navigate = useNavigate();
 
+  /** Check logged in */
   useEffect(() => {
     if (auth !== true) {
       navigate("/login");
     }
   }, [auth, navigate]);
 
-  const clickPharmacy = () => {
+  /** Buttons */
+  const next = () => {
     emit(NEXT, { doctor: "pharmacy" });
   };
 
@@ -63,7 +67,7 @@ let rowsDrugs = drugInventory.map(row => {
       <br />
       <Button 
       className='m-4 mb-5 buttonOne'
-      onClick={clickPharmacy}>Next Patient</Button>
+      onClick={next}>Next Patient</Button>
       
 
 
@@ -112,5 +116,3 @@ let rowsDrugs = drugInventory.map(row => {
     </>
   );
 };
-
-export default PharmacyQueuePage;

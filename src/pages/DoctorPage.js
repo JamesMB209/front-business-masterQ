@@ -10,14 +10,14 @@ import Dropdown from "react-bootstrap/Dropdown";
 
 const Doctor = () => {
   const auth = useSelector((state) => state.authStore.isAuthenticated);
-  const business = useSelector((state) => state.businessObjectStore);
+  // const business = useSelector((state) => state.businessObjectStore);
   const apiStore = useSelector((state) => state.apiStore);
 
   const [doctorSelected, setDoctorSelected] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  delete business.pharmacy;
+  // delete business.pharmacy;
 
   // console.log(apiStore);
   // console.log(business);
@@ -26,7 +26,7 @@ const Doctor = () => {
     if (auth !== true) {
       navigate("/login");
     }
-    dispatch(loadBusinessObjThunk());
+    // dispatch(loadBusinessObjThunk());
   }, [auth, navigate]);
 
   return (
@@ -42,7 +42,7 @@ const Doctor = () => {
             key={i}
               onClick={(e) => {
                 setDoctorSelected(e.target.attributes.value.value);
-                dispatch(loadBusinessObjThunk());
+                // dispatch(loadBusinessObjThunk());
               }}
               value={eachDoc.id}
             >

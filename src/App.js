@@ -15,6 +15,7 @@ import { socket, emit } from "./redux/webSocets/actions";
 import { loadBusinessObjThunk } from "./redux/businessObj/actions";
 import { loadApiThunk } from "./redux/api/actions";
 import { loadPharmacyStockThunk } from "./redux/pharmacyStock/actions";
+import { getAllDoctors } from "./redux/settings/actions";
 
 //pris added:
 import {
@@ -34,9 +35,10 @@ function App() {
 
   dispatch(loadApiThunk());
   dispatch(loadPharmacyStockThunk())
+  dispatch(loadBusinessObjThunk());
+  dispatch(getAllDoctors())
 
   useEffect(() => {
-    dispatch(loadBusinessObjThunk());
     socket.on("UPDATE_BUSINESS", () => {
       dispatch(loadBusinessObjThunk());
     });
