@@ -13,8 +13,8 @@ const ChangeDoctorRoomComponent = () => {
   const [roomNumber, setRoomNumber] = useState("");
   const dispatch = useDispatch();
 
-  console.log(doctors);
-  console.log(settingStore)
+  // console.log(doctors);
+  // console.log(settingStore)
 
   return (
     <div>
@@ -22,7 +22,7 @@ const ChangeDoctorRoomComponent = () => {
       <DropdownButton id="dropdown-basic-button" title="Select Doctor">
       {doctors === undefined ? <h4>No Doctors available</h4> : doctors.map((doctor) => {
         return (
-            <Dropdown.Item onClick={() => {
+            <Dropdown.Item key={doctor.id} onClick={() => {
               setDoctorId(doctor.id);
               setDoctorName(doctor.name)
             }}>{doctor.name}</Dropdown.Item>

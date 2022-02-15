@@ -9,14 +9,14 @@ const ChangeDoctorStatusComponent = () => {
   const settings = useSelector((state) => state.settingsStore)
 
   const dispatch = useDispatch()
-  console.log(doctors);
-  console.log(settings)
+  // console.log(doctors);
+  // console.log(settings)
   return (
     <div>
       <p>Change doctor status</p>
       {settings.filter((e) => e.employed !== false).map((e) => {
         return (
-          <div>
+          <div key={e.id}>
             <p>Dr. {e.f_name} {e.l_name}</p>
             <button onClick={() => dispatch(changeDoctorStatus(e.id, false, true))}>Not working today/Inactive</button>
             <button onClick={() => dispatch(changeDoctorStatus(e.id, false, false))}>Unemployed</button>
@@ -27,7 +27,7 @@ const ChangeDoctorStatusComponent = () => {
       <p>List of Inactive doctors</p>
       {settings.filter((e) => e.employed !== true).map((e) => {
         return (
-          <div>
+          <div key={e.id}>
             <p>Dr. {e.f_name} {e.l_name}</p>
             <button onClick={() => dispatch(changeDoctorStatus(e.id, true, true))}>Bring me back!</button>
           </div>

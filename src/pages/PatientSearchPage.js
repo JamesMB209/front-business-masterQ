@@ -8,7 +8,7 @@ const PatientSearch = () => {
   const auth = useSelector((state) => state.authStore.isAuthenticated);
   const searchingStore = useSelector((state) => state.searchStore.data);
   
-  console.log(searchingStore);
+  // console.log(searchingStore);
   useEffect(() => {
     if (auth !== true) {
       navigate("/login");
