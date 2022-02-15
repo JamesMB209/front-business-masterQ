@@ -12,8 +12,8 @@ const ChangeDoctorStatusComponent = () => {
   const settings = useSelector((state) => state.settingsStore)
 
   const dispatch = useDispatch()
-  console.log(doctors);
-  console.log(settings)
+  // console.log(doctors);
+  // console.log(settings)
   return (
     <div>
       <Card.Title>
@@ -21,9 +21,8 @@ const ChangeDoctorStatusComponent = () => {
       </Card.Title>
     
       {settings.filter((e) => e.employed !== false).map((e) => {
-       
-       return (
-          <div>
+        return (
+          <div key={e.id}>
             <p>Dr. {e.f_name} {e.l_name}</p>
             <Button 
             className='buttonOneSh mx-2'
@@ -43,7 +42,7 @@ const ChangeDoctorStatusComponent = () => {
       <p>List of Inactive doctors</p>
       {settings.filter((e) => e.employed !== true).map((e) => {
         return (
-          <div>
+          <div key={e.id}>
             <p>Dr. {e.f_name} {e.l_name}</p>
             <button onClick={() => dispatch(changeDoctorStatus(e.id, true, true))}>Bring me back!</button>
           </div>

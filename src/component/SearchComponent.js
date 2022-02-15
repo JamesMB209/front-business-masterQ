@@ -25,8 +25,8 @@ const SearchBar = (props) => {
       drug_allergy: patient.drug_allergy,
     })
   );
-  console.log("tgis is the prips serchcomponent line 18", props.searchingStore);
-  console.log(newProps);
+  // console.log("tgis is the prips serchcomponent line 18", props.searchingStore);
+  // console.log(newProps);
 
   const key = "hkid";
 
@@ -34,7 +34,7 @@ const SearchBar = (props) => {
     ...new Map(newProps.map((item) => [item[key], item])).values(),
   ];
 
-  console.log(arrayUniqueByKey);
+  // console.log(arrayUniqueByKey);
   return (
     <div>
       <input

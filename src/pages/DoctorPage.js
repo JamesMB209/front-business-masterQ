@@ -18,8 +18,8 @@ const Doctor = () => {
   const navigate = useNavigate();
   delete business.pharmacy;
 
-  console.log(apiStore);
-  console.log(business);
+  // console.log(apiStore);
+  // console.log(business);
 
   useEffect(() => {
     if (auth !== true) {
@@ -34,6 +34,7 @@ const Doctor = () => {
         {apiStore.length != 0 ? (
           apiStore.map((eachDoc, i) => (
             <Dropdown.Item
+            key={i}
               onClick={(e) => {
                 setDoctorSelected(e.target.attributes.value.value);
                 dispatch(loadBusinessObjThunk());
