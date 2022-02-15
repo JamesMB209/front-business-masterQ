@@ -28,9 +28,13 @@
     color: $blueTwo;
     border-radius: 20px;
     width: 70vw;
-    height: 13vh;
-    margin: 30px;
-    @include center-left;
+    height: 10vh;
+    @include center-all;
+}
+
+.search_header h3 {
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .queue_box {
@@ -60,7 +64,7 @@
     border: 1px solid $blueOne;
     border-radius: 20px;
     padding: 10px;
-    min-height: 40vh;
+    min-height: 50vh;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -117,16 +121,15 @@
 .doctor_card {
     border: 1px solid $blueFour;
     border-radius: 10px;
-    width: 28rem;
-    min-height: 400px;
+    width: 40rem;
+    min-height: 430px;
     margin: 20px;
-    padding: 10px;
+    padding: 30px;
 }
 
 .doctor_card h5 {
     font-weight: 500;
     display: inline-block;
-    width: 150px;
 }
 
 .doctor_card p {
@@ -138,3 +141,56 @@
     font-weight: 500;
     color: $blueThree;
 }
+
+.doctor_button {
+    display: block;
+    margin: auto;
+    @include center-all;
+}
+
+.drug_name {
+    color: $blueThree;
+    line-height: 25px;
+    letter-spacing: 1px;
+}
+
+.doctor_card_diagnosis {
+    border: 1px solid $blueFour;
+    border-radius: 10px;
+    width: 80rem;
+    min-height: 430px;
+    margin: 20px;
+    padding: 30px;
+}
+
+/////PHARMACY
+
+.inventory_table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pharmacy_stock_card  {
+    border: 1px solid $blueFour;
+    border-radius: 10px;
+}
+
+.pharmacy_card {
+    border: 1px solid $blueFour;
+    border-radius: 10px;
+    width: 35rem;
+    min-height: 230px;
+    margin: 10px;
+    padding: 40px;
+}
+
+.pharmacy_card h6 {
+    color: $blueThree;
+    font-size: 20px;
+}
+
+.pharmacy_card span {
+   font-weight: 600;
+    
+}
+

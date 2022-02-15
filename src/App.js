@@ -8,7 +8,7 @@ import Queue from "./pages/QueuePage";
 import PharmacyQueuePage from "./pages/PharmacyQueuePage";
 import Settings from "./pages/SettingsPage";
 import { logOutThunk } from "./redux/auth/actions";
-import { Navbar, NavItem, Container } from "react-bootstrap";
+import { Navbar, NavItem, Container, Accordion } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import { socket, emit } from "./redux/webSocets/actions";
@@ -63,7 +63,7 @@ function App() {
           </CDBSidebarHeader>
 
           <CDBSidebarContent className="sidebar-content">
-            <button
+          {/*   <button
               onClick={() => {
                 emit("NEXT", { business: 1, doctor: 1 });
                 console.log("clicked");
@@ -86,7 +86,7 @@ function App() {
               }}
             >
               Dr. James next button
-            </button>
+            </button> */}
 
             <CDBSidebarMenu>
             

@@ -1,13 +1,17 @@
 import { useSelector } from "react-redux";
+import { Col, Row, Container } from 'react-bootstrap';
 
 export default function PharmacyQueueComponent(patient) {
 
   /** Load inital stores */
-  const drugInventry = useSelector((state) => state.pharmacyStore);
+  const drugInventory = useSelector((state) => state.pharmacyStore);
   // console.log(patient)
 
   return (
-    <div className="row">
+    <Container>
+    <Row>
+      <Col lg={4} md={12} className='pharmacy_card'>
+ 
       {/* <p>
         Patient: {patient.f_name} {patient.l_name}
       </p> */}
@@ -16,18 +20,26 @@ export default function PharmacyQueueComponent(patient) {
         <p key={`key-prescribed-drugs-${index}`}>{drug.drug}, dosage:{drug.dosage}, price:{drug.price}</p>
       ))
       :"No drugs required"} */}
-      {patient === undefined ? "No patients in the queue" : <h6>{patient.f_name} {patient.l_name}</h6>}
+      {patient === undefined ? "No patients in the queue" : 
+      <h6>Patient Name: {patient.f_name} {patient.l_name}</h6>}
+      
       {patient.prescribedDrugs === undefined
         ? "No drugs required"
-        : drugInventry
+        : drugInventory
             .filter((drug) =>
               patient.prescribedDrugs.includes(drug.sku.toString())
             )
             .map((drug, index) => (
               <p key={`key-prescribed-drugs-${index}`}>
-                {drug.drug}, dosage:{drug.dosage}, price:{drug.price}
+                <br/>
+                <span>{drug.drug} </span>
+                dosage: <span>{drug.dosage}mg </span>
+                {/* price:{drug.price} */}
               </p>
             ))}
-    </div>
+   
+    </Col>
+    </Row>
+    </Container>
   );
 };

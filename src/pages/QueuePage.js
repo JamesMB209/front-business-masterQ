@@ -17,7 +17,7 @@ const Queue = () => {
   return (
     <>
     <Container fluid>
-    <div className='search_header'>
+    <div className='search_header my-5'>
       <h3 className='' >Queue Management</h3>
     </div>
   

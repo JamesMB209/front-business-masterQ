@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadPharmacyStockThunk } from "../redux/pharmacyStock/actions";
 import Form from 'react-bootstrap/Form'
 import FormCheck from 'react-bootstrap/FormCheck'
-import { Container, Card, Button } from "react-bootstrap";
+import { Container, Card, Button, Row, Col, Stack } from "react-bootstrap";
 
 import { emit, NEXT } from "../redux/webSocets/actions";
 
@@ -43,18 +43,18 @@ export default function DoctorComponent(props) {
 
   return (
     <div>
-      <Container>
-      <br />
+      <Container>  
       {doctor == undefined
         ? "Select Doctor to continue" : doctor.queue.length !== 0 ?
           doctor.queue.filter((first) => first == doctor.queue[0]).map((patient) => {
             return <div>
 
               <h2 className='ms-5'>Dr. {doctor.fullName}</h2>
-
+              <Row>
+                <Col lg={6} sm={12}>
               <Card className='doctor_card'>
                 
-                <h5 className='doctor_title my-2'>
+                <h5 className='doctor_title my-1 mb-5'>
                   Patient Info</h5>
               <p>{patient.appointmentHistoryID}</p>
               <p>Name: <span>{patient.f_name} {patient.l_name}</span></p>
@@ -64,43 +64,17 @@ export default function DoctorComponent(props) {
               <p>Email: <span>{patient.email}</span></p>
               <p>Allergies: <span>{patient.drug_allergy}</span></p>
               </Card>
+              </Col>
 
-              <Card className='doctor_card'>
-                <p>Diagnosis</p>
-              <input
-                type="text"
-                value={diagnosis}
-                onChange={(e) => {
-                  setDiagnosis(e.target.value)
-                  setPatientId(patient.id)
-                }}
-              />
-              </Card>
-
-              <Button 
-              className='buttonOne m-3'
-              onClick={clickDoctor}>Next Patient</Button>
-
-              <Button 
-              className='buttonOne m-3'
-              onClick={getHistory(patient.id)}>TEST</Button>
-              
-              <Button
-              className='buttonOne m-3'
-                onClick={postDiagnosis(
-                  patient.appointmentHistoryID,
-                  diagnosis,
-                  true,
-                  true
-                )}
-              >
-                TEST SENDING
-              </Button>
               {/* {diagnosis} */}
-              {patient.history.length == 0 ?
-                <p>"No history found for the patient"</p> : patient.history.map((patientHistory) => {
-                  return (
-                    <div>
+              <Col lg={6} sm={12}>
+              <Card className='doctor_card'>
+                          <h5 className='doctor_title my-1 mb-3'>
+                              Visit History</h5>
+                          {patient.history.length == 0 ?
+                            <p>"No history found for the patient"</p> : patient.history.map((patientHistory) => {
+                              return (
+                                <div>
                       <Accordion>
                         <Accordion.Item eventKey={patient.id}>
                           <Accordion.Header>Previous Visit{patient.created_at}</Accordion.Header>
@@ -113,20 +87,93 @@ export default function DoctorComponent(props) {
                   )
                 })
               }
-              <Form>
+              </Card> 
+              </Col>
+                </Row>
+    
+         {/*      <Button
+              className='buttonOne m-3'
+                onClick={postDiagnosis(
+                  patient.appointmentHistoryID,
+                  diagnosis,
+                  true,
+                  true
+                )}
+              >
+                TEST SENDING
+              </Button> */}
+
+              <Row>
+                <Col lg={6} md={12}>
+              <Card className='doctor_card_diagnosis'>
+                <h5 className='doctor_title my-1 mb-3'>Diagnosis</h5>
+              <input
+              className='diagnosis_input'
+              type="text"
+              value={diagnosis}
+              onChange={(e) => {
+                setDiagnosis(e.target.value);
+                setPatientId(patient.id);
+                setAppointmentHistoryId(patient.appointmentHistoryID);
+                /* type="text"
+                value={diagnosis}
+                onChange={(e) => {
+                  setDiagnosis(e.target.value)
+                  setPatientId(patient.id) */
+                }}
+              />
+              
+              <h5 className='doctor_title my-3 mb-3'>Drug Prescription</h5>
+              <Form className='mt-5'>
                 {drugInventry.map((drugOBJ, index) => (
                   <Form.Check
-                  key={`drug-key-${index}`}
+                  className='drug_name'
+                    key={`drug-key-${index}`}
                     name="drugs"
                     type="checkbox"
                     onChange={onChangePrescription}
                     value={drugOBJ.sku}
-                    label={`${drugOBJ.drug}: Dosage:${drugOBJ.dosage}mg.`}
+                    label={`${drugOBJ.drug}
+                    :${drugOBJ.dosage}mg.`}
                     checked={drugs.includes(`${drugOBJ.sku}`) ? true : false}
                   />
                 ))}
+                <div className='doctor_button'> 
+            {/*        <Button 
+              className='buttonOne m-3'
+              //onClick={clickDoctor}>Next Patient
+              onClick={postDiagnosis(
+                    patient.appointmentHistoryID,
+                    diagnosis,
+                    true,
+                    true
+                  )}
+                >Save Diagnosis
+              </Button> */}
+              <Button 
+              className='buttonTwo m-3'
+            /*   onClick={getHistory(patient.id)}>TEST */
+              onClick={() => {
+                      postDiagnosis(
+                        patient.appointmentHistoryID,
+                        diagnosis,
+                        true,
+                        true
+                      );
+                      emit(NEXT, { doctor: props.id, prescribedDrugs: drugs });
+                      setDrugs([]);
+                      setDiagnosis("");
+                    }}
+                  >
+                    Next Patient
+              </Button>
+              </div>
               </Form>
+              </Card>
+              </Col>
+              </Row>
             </div>
+
           }) : <h2>No patients in queue for Dr. {doctor.fullName} </h2>}
           </Container>
     </div>
