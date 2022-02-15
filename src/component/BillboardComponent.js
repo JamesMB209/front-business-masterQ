@@ -16,9 +16,9 @@ const BillboardComponent = () => {
       ) : (
         apiStore.map((doctorDetail) => {
           return (
-            <Col key={doctorDetail.id} md={4} sm={9}>
-            <div className='text-center '>
-                  <div className='overlap_box'>
+            <Col lg={4} md={6} sm={12} key={doctorDetail.id}>
+            <div className='text-center'>
+                   <div className='overlap_box'>
                   <h4 className='my-2'> Room {doctorDetail.room} </h4>
                   <h4> Dr {doctorDetail.name} </h4>
                   </div>

@@ -19,7 +19,8 @@ const ChangeDoctorRoomComponent = () => {
   return (
     <div>
       <Card.Title>
-      <h5 className='setting_title'>Change doctors room</h5>
+      <h5 className='setting_title my-2'>
+        Change doctors room</h5>
       </Card.Title>
 
       <DropdownButton id="dropdown-basic-button" title="Select Doctor">
@@ -32,18 +33,19 @@ const ChangeDoctorRoomComponent = () => {
             );
           })}
           </DropdownButton>
+          
           <p className='m-3'>You have chosen:</p>
-          <h6 className='ms-3'> Dr. {doctorName == "" ? "Choose a doctor" : doctorName} </h6>
+          <h6 className='ms-3'>  {doctorName == "" ? "Choose a doctor" : doctorName} </h6>
           
           <p className='mx-3'>Change to room 
           <input
-                    className='mx-3'
+                    className='setting_input '
                     type="text"
                     placeholder="ex. 1001"
                     onChange={(e) => setRoomNumber(e.target.value)}
                   /> </p>
           <Button
-          className='buttonOne'
+          className='buttonOne my-2'
               onClick={() => {
                       dispatch(changeDoctorRoom(roomNumber, doctorId));
                     }}

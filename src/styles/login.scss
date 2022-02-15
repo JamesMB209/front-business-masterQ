@@ -84,7 +84,8 @@
   .card_password {
       border: 1px solid $blueFour;
       border-radius: 10px;
-      width: 28rem;
+      width: 25rem;
+      min-height: 350px;
       margin: 30px;
       padding: 10px;
   }
@@ -92,7 +93,8 @@
   .card_room {
     border: 1px solid $blueFour;
     border-radius: 10px;
-    width: 28rem;
+    width: 25rem;
+    min-height: 350px;
     margin: 30px;
     padding: 10px;
 }
@@ -103,4 +105,36 @@
     width: 50rem;
     margin: 30px;
     padding: 10px;
+}
+
+.setting_doctor {
+    font-weight: 500;
+    display: inline-block;
+    width: 150px;
+}
+
+//////DOCTOR PAGE ///////
+.doctor_card {
+    border: 1px solid $blueFour;
+    border-radius: 10px;
+    width: 28rem;
+    min-height: 400px;
+    margin: 20px;
+    padding: 10px;
+}
+
+.doctor_card h5 {
+    font-weight: 500;
+    display: inline-block;
+    width: 150px;
+}
+
+.doctor_card p {
+    font-weight: 600;
+    color: grey;
+}
+
+.doctor_card span {
+    font-weight: 500;
+    color: $blueThree;
 }

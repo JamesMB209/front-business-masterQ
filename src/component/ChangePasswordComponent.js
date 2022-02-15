@@ -32,7 +32,7 @@ const ChangePasswordComponent = () => {
     <>
     <div>
     <Card.Title>
-      <h5 className='setting_title'>Change Password</h5>
+      <h5 className='setting_title my-2'>Change Password</h5>
       </Card.Title>
       <input type="text" 
       className='setting_input'
@@ -42,7 +42,7 @@ const ChangePasswordComponent = () => {
       <br />
       <input
         type="text"
-        className='setting_input'
+        className='setting_input my-4'
         value={newPassword}
         onChange={(e) => {
           setError(null)
@@ -61,7 +61,7 @@ const ChangePasswordComponent = () => {
       {error}
       <br />
       <Button type="submit" 
-      className='buttonOne'
+      className='buttonOne mt-3'
       onClick={() => changePassword()}>Change Password</Button>
       <br />
       <br />
