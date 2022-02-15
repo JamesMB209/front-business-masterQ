@@ -1,35 +1,18 @@
-import React, { useEffect } from "react";
-import { loadBusinessObjThunk } from "../redux/businessObj/actions";
-import { emit, NEXT, socket, UPDATE_PATIENT } from "../redux/webSocets/actions";
 import { useSelector } from "react-redux";
 
-const PharmacyQueueComponent = () => {
-  const clickPharmacy = () => {
-    emit(NEXT, { doctor: "pharmacy" });
-  };
+export default function PharmacyQueueComponent(patient) {
 
-  const props = useSelector((state) => state.businessObjectStore.pharmacy);
+  /** Load inital stores */
+  const drugInventry = useSelector((state) => state.pharmacyStore);
 
-  console.log(props);
   return (
-    <div>
-      {props === undefined ? (
-        "No patients waiting in the pharmacy line."
-      ) : (
-        <div>
-          <button onClick={clickPharmacy}>Advance Pharmacy Queue</button>
-          <br />
-          {props.queue.map((patient) => {
-            return (
-              <div>
-                <p>{patient.f_name} {patient.l_name}</p>
-              </div>
-            );
-          })}
-        </div>
-      )}
+    <div className="row">
+      <p>Patient: {patient.f_name} {patient.l_name}</p>
+      {patient.prescribedDrugs != undefined
+      ?drugInventry.filter((drug) => patient.prescribedDrugs.includes(drug.sku.toString())).map((drug, index) => (
+        <p key={`key-prescribed-drugs-${index}`}>{drug.drug}, dosage:{drug.dosage}, price:{drug.price}</p>
+      ))
+      :"No drugs required"}
     </div>
   );
 };
-
-export default PharmacyQueueComponent;
