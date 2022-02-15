@@ -7,12 +7,13 @@ export default function PharmacyQueueComponent(patient) {
 
   return (
     <div className="row">
-      <p>Patient: {patient.f_name} {patient.l_name}</p>
+      {patient.queuePosition == 0 ? <p>Currently calling:</p> : <p>Next patient:</p>}
+      <p>{patient.f_name} {patient.l_name}</p>
       {patient.prescribedDrugs != undefined
-      ?drugInventry.filter((drug) => patient.prescribedDrugs.includes(drug.sku.toString())).map((drug, index) => (
-        <p key={`key-prescribed-drugs-${index}`}>{drug.drug}, dosage:{drug.dosage}, price:{drug.price}</p>
-      ))
-      :"No drugs required"}
+        ? drugInventry.filter((drug) => patient.prescribedDrugs.includes(drug.sku.toString())).map((drug, index) => (
+          <p key={`key-prescribed-drugs-${index}`}>{drug.drug}, dosage:{drug.dosage}, price:{drug.price}</p>
+        ))
+        : "No drugs required"}
     </div>
   );
 };

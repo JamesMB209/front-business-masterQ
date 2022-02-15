@@ -6,17 +6,26 @@ let token = localStorage.getItem("token");
 
 export function loadPharmacyStockThunk() {
   return (dispatch) => {
-      console.log('loading pharmacy')
+    console.log('loading pharmacy')
     return axios
       .get(`${process.env.REACT_APP_API_SERVER}/pharmacy/load`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then(({data}) => {
+      .then(({ data }) => {
         dispatch({
-            type:LOAD_PHARMACY,
-            data:data
+          type: LOAD_PHARMACY,
+          data: data
         })
       })
       .catch((error) => console.log(error));
   };
 }
+
+export function updatePharmacyStock(data) {
+  return (dispatch) => {
+    dispatch({
+      type: "UPDATE_PHARMACY",
+      data: data
+    })
+  }
+  }

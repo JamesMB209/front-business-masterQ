@@ -1,24 +1,28 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import PharmacyQueueComponent from "../component/PharmacyQueueComponent";
-import { loadBusinessObjThunk } from "../redux/businessObj/actions";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { pharmacyReducer } from "../redux/pharmacyStock/reducers";
-import { emit, NEXT } from "../redux/webSocets/actions";
 
-const PharmacyQueuePage = () => {
+import { emit, NEXT } from "../redux/webSocets/actions";
+import PharmacyQueueComponent from "../component/PharmacyQueueComponent";
+
+export default function  PharmacyQueuePage () {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+    /** Load inital states */
   const auth = useSelector((state) => state.authStore.isAuthenticated);
   const businessObject = useSelector((state) => state.businessObjectStore);
   const drugInventry = useSelector((state) => state.pharmacyStore);
-  const navigate = useNavigate();
 
+  /** Check logged in */
   useEffect(() => {
     if (auth !== true) {
       navigate("/login");
     }
   }, [auth, navigate]);
 
-  const clickPharmacy = () => {
+  /** Buttons */
+  const next = () => {
     emit(NEXT, { doctor: "pharmacy" });
   };
 
@@ -33,13 +37,11 @@ const PharmacyQueuePage = () => {
       {businessObject.pharmacy.queue =! undefined
         ? businessObject.pharmacy.queue.slice(0, 3).map((patient, index) => (
           <PharmacyQueueComponent key={`key-patient-${index}`} {...patient} />
-        ))
-        : "Nobody waiting."
-      }
+          ))
+          :<br/>
+        }
 
-      <button onClick={clickPharmacy}>Next</button>
+        <button onClick={next}>Next</button>
     </div>
   );
 };
-
-export default PharmacyQueuePage;

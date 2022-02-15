@@ -34,9 +34,9 @@ function App() {
 
   dispatch(loadApiThunk());
   dispatch(loadPharmacyStockThunk())
+  dispatch(loadBusinessObjThunk());
 
   useEffect(() => {
-    dispatch(loadBusinessObjThunk());
     socket.on("UPDATE_BUSINESS", () => {
       dispatch(loadBusinessObjThunk());
     });
