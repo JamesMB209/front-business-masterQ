@@ -17,14 +17,15 @@ const ChangeDoctorStatusComponent = () => {
   return (
     <div>
       <Card.Title>
-      <h5 className='setting_title'>Change doctor status</h5>
+      <h5 className='setting_title my-2'>Change doctor status</h5>
       </Card.Title>
     
       {settings.filter((e) => e.employed !== false).map((e) => {
        
        return (
           <div>
-            <p>Dr. {e.f_name} {e.l_name}</p>
+            <p className='setting_doctor my-3'>
+              Dr. {e.f_name} {e.l_name}</p>
             <Button 
             className='buttonOneSh mx-2'
             onClick={() => dispatch(changeDoctorStatus(e.id, true, true))}>On Duty</Button>

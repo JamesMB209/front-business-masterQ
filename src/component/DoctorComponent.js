@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadPharmacyStockThunk } from "../redux/pharmacyStock/actions";
 import Form from 'react-bootstrap/Form'
 import FormCheck from 'react-bootstrap/FormCheck'
+import { Container, Card, Button } from "react-bootstrap";
 
 import { emit, NEXT } from "../redux/webSocets/actions";
 
@@ -40,19 +41,30 @@ export default function DoctorComponent(props) {
 
   return (
     <div>
+      <Container>
       <br />
       {doctor == undefined
         ? "Select Doctor to continue" : doctor.queue.length !== 0 ?
           doctor.queue.filter((first) => first == doctor.queue[0]).map((patient) => {
             return <div>
-              <h2>Dr. {doctor.fullName}</h2>
+
+              <h2 className='ms-5'>Dr. {doctor.fullName}</h2>
+
+              <Card className='doctor_card'>
+                
+                <h5 className='doctor_title my-2'>
+                  Patient Info</h5>
               <p>{patient.appointmentHistoryID}</p>
-              <p>{patient.f_name} {patient.l_name}</p>
-              <p>{patient.gender}</p>
-              <p>{patient.dob}</p>
-              <p>{patient.hkid}</p>
-              <p>{patient.email}</p>
-              <p>{patient.drug_allergy}</p>
+              <p>Name: <span>{patient.f_name} {patient.l_name}</span></p>
+              <p>Gender: <span> {patient.gender}</span></p>
+              <p>Date of Birth: <span>{patient.dob}</span></p>
+              <p>HKID: <span>{patient.hkid}</span></p>
+              <p>Email: <span>{patient.email}</span></p>
+              <p>Allergies: <span>{patient.drug_allergy}</span></p>
+              </Card>
+
+              <Card className='doctor_card'>
+                <p>Diagnosis</p>
               <input
                 type="text"
                 value={diagnosis}
@@ -61,9 +73,18 @@ export default function DoctorComponent(props) {
                   setPatientId(patient.id)
                 }}
               />
-              <button onClick={clickDoctor}>Next Patient</button>
-              <button onClick={getHistory(patient.id)}>TEST</button>
-              <button
+              </Card>
+
+              <Button 
+              className='buttonOne m-3'
+              onClick={clickDoctor}>Next Patient</Button>
+
+              <Button 
+              className='buttonOne m-3'
+              onClick={getHistory(patient.id)}>TEST</Button>
+              
+              <Button
+              className='buttonOne m-3'
                 onClick={postDiagnosis(
                   patient.appointmentHistoryID,
                   diagnosis,
@@ -72,7 +93,7 @@ export default function DoctorComponent(props) {
                 )}
               >
                 TEST SENDING
-              </button>
+              </Button>
               {/* {diagnosis} */}
               {patient.history.length == 0 ?
                 <p>"No history found for the patient"</p> : patient.history.map((patientHistory) => {
@@ -105,6 +126,7 @@ export default function DoctorComponent(props) {
               </Form>
             </div>
           }) : <h2>No patients in queue for Dr. {doctor.fullName} </h2>}
+          </Container>
     </div>
   );
 }

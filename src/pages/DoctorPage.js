@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { loadBusinessObjThunk } from "../redux/businessObj/actions";
+import { Container } from 'react-bootstrap';
 
 import DoctorComponent from "../component/DoctorComponent";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -30,7 +31,11 @@ const Doctor = () => {
 
   return (
     <div>
-      <DropdownButton id="dropdown-basic-button" title="Doctor">
+      <Container fluid>
+      <DropdownButton 
+      className='m-4'
+      id="dropdown-basic-button" 
+      title="Doctor">
         {apiStore.length != 0 ? (
           apiStore.map((eachDoc, i) => (
             <Dropdown.Item
@@ -49,6 +54,7 @@ const Doctor = () => {
       </DropdownButton>
 
       <DoctorComponent id={doctorSelected} />
+      </Container>
     </div>
   );
 };
