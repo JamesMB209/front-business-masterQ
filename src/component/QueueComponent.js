@@ -10,12 +10,18 @@ import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined
 const QueueComponent = () => {
   const businessObjectStore = useSelector((state) => state.businessObjectStore);
   const apiStore = useSelector((state) => state.apiStore);
+  const [modalPatientId, setModalPatientId] = useState("");
+  const [modalDoctorId, setModalDoctorId] = useState("");
   // console.log(apiStore);
 
   //alert modal
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setModalPatientId("");
+    setModalDoctorId("");
+  };
   const handleShow = () => setShow(true);
 
   return (
@@ -59,11 +65,15 @@ const QueueComponent = () => {
                                 variant="primary"
                                 color="error"
                                 className="float-end icon_hover"
-                                onClick={handleShow}
+                                onClick={() => {
+                                  setModalPatientId(e.id);
+                                  setModalDoctorId(doctorDetail.id);
+                                  handleShow();
+                                }}
                               ></DeleteForeverOutlinedIcon>
 
-                      {/* !!!!!!!!!!ADD delete patient function here (patient id not correct) */}
-                      {/* <Button 
+                              {/* !!!!!!!!!!ADD delete patient function here (patient id not correct) */}
+                              {/* <Button 
                       className='buttonDanger'  
                       onClick={() => emit("DELETE", {doctor: doctorDetail.id,patientID:e.id}), handleClose}
                       >
@@ -90,12 +100,13 @@ const QueueComponent = () => {
                                   {/* !!!!!!!!!!ADD delete patient function here (patient id not correct) */}
                                   <Button
                                     className="buttonDanger"
-                                    onClick={() =>
+                                    onClick={() => {
                                       emit("DELETE", {
-                                        doctor: doctorDetail.id,
-                                        patientID: e.id,
-                                      })
-                                    }
+                                        doctor: modalDoctorId,
+                                        patientID: modalPatientId,
+                                      });
+                                      handleClose();
+                                    }}
                                   >
                                     Delete Patient
                                   </Button>

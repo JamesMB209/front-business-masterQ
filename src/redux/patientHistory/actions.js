@@ -17,7 +17,7 @@ export function getHistory(id) {
         params: { patientID: id },
       })
       .then((response) => {
-        console.log(response.data);
+        console.log("getting their history", response.data);
         dispatch({ type: LOAD_HISTORY_SUCCESS, data: response.data });
       })
       .catch((err) => {
