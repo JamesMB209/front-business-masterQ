@@ -11,7 +11,7 @@ import { logOutThunk } from "./redux/auth/actions";
 import { Navbar, NavItem, Container, Accordion } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
-import { socket, emit } from "./redux/webSocets/actions";
+import { socket, emit, token } from "./redux/webSocets/actions";
 import { loadBusinessObjThunk } from "./redux/businessObj/actions";
 import { loadApiThunk } from "./redux/api/actions";
 import { loadPharmacyStockThunk } from "./redux/pharmacyStock/actions";
@@ -34,9 +34,9 @@ function App() {
   const dispatch = useDispatch();
 
   dispatch(loadApiThunk());
-  dispatch(loadPharmacyStockThunk())
+  dispatch(loadPharmacyStockThunk());
   dispatch(loadBusinessObjThunk());
-  dispatch(getAllDoctors())
+  dispatch(getAllDoctors());
 
   useEffect(() => {
     socket.on("UPDATE_BUSINESS", () => {
@@ -47,6 +47,13 @@ function App() {
       socket.off("UPDATE_BUSINESS");
     };
   });
+
+  /** Catch if the app was loaded without a valid token causing socket to not connect after login */
+  useEffect(() => {
+    if (isAuthenticated === true && token === null) {
+      window.location.reload();
+    }
+  }, [dispatch, isAuthenticated]);
 
   return (
     <BrowserRouter>
@@ -65,7 +72,7 @@ function App() {
           </CDBSidebarHeader>
 
           <CDBSidebarContent className="sidebar-content">
-          {/*   <button
+            {/*   <button
               onClick={() => {
                 emit("NEXT", { business: 1, doctor: 1 });
                 console.log("clicked");
@@ -91,8 +98,6 @@ function App() {
             </button> */}
 
             <CDBSidebarMenu>
-            
-
               <Link to="/billboard" activeclassname="activeClicked">
                 <CDBSidebarMenuItem className="sidebar-icon" icon="tv">
                   <h6>Billboard</h6>
