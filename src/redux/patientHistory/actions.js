@@ -8,9 +8,10 @@ export const LOAD_HISTORY_FAILURE = "LOAD_HISTORY_FAILURE";
 export const POST_DIAGNOSIS_SUCCESS = "POST_DIAGNOSIS_SUCCESS";
 export const POST_DIAGNOSIS_FAILURE = "POST_DIAGNOSIS_FAILURE";
 
+let token = localStorage.getItem("token");
+
 export function getHistory(id) {
   return (dispatch) => {
-    let token = localStorage.getItem("token");
     return axios
       .get(`${process.env.REACT_APP_API_SERVER}/diagnosis/load`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -35,12 +36,13 @@ export function postDiagnosis(id, diagnosis, follow_up, sick_leave) {
         diagnosis: diagnosis,
         followUp: follow_up,
         sickLeave: sick_leave,
-      })
+      },
+      {headers: { Authorization: `Bearer ${token}` }})
       .then((response) => {
         console.log(response);
       })
       .catch((error) => {
-        console.log(`Woopsie phistory line 46:: ${error}`);
+        console.log(`Woopsie history line 46:: ${error}`);
       });
   };
 }
