@@ -10,6 +10,7 @@ export const CHANGE_PASSWORD_FAILURE = "CHANGE_PASSWORD_FAILURE";
 export const CHANGE_DOCTOR_STATUS_FAILURE = "CHANGE_DOCTOR_STATUS_FAILURE";
 export const CHANGE_DOCTOR_ROOM_FAILURE = "CHANGE_DOCTOR_ROOM_FAILURE";
 export const GET_DOCTOR_FAILURE = "GET_DOCTOR_FAILURE"
+let token = localStorage.getItem("token")
 
 export const changePasswordThunk = (secret, password) => async (dispatch) => {
   try {
@@ -19,7 +20,8 @@ export const changePasswordThunk = (secret, password) => async (dispatch) => {
         type: "business_users",
         secret: secret,
         password: password,
-      }
+      },
+      {headers: { Authorization: `Bearer ${token}` }}
     );
     dispatch({ type: CHANGE_PASSWORD_SUCCESS, data: { secret, password } });
     console.log(response);
@@ -38,7 +40,8 @@ export const changeDoctorStatus = (doctor, active, employed) => async (dispatch)
           doctor: doctor,
         active: active,
         employed: employed,
-      }
+      },
+      {headers: { Authorization: `Bearer ${token}` }}
     );
     console.log(response);
     console.log("clicked")
@@ -55,7 +58,8 @@ export const changeDoctorRoom = (room, id) => async (dispatch) => {
       {
         room: room,
         id: id,
-      }
+      },
+      {headers: { Authorization: `Bearer ${token}` }}
     );
     dispatch({ type: CHANGE_DOCTOR_ROOM_SUCCESS, data: { room, id } });
     console.log(response);
@@ -67,7 +71,7 @@ export const changeDoctorRoom = (room, id) => async (dispatch) => {
 
 export const getAllDoctors = () => async (dispatch) => {
   try {
-    let token = localStorage.getItem("token")
+
     const response = await axios.get(`${process.env.REACT_APP_API_SERVER}/setting/alldoctors`, {
       headers: { Authorization: `Bearer ${token}` },
     })
