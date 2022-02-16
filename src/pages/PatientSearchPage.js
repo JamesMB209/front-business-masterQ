@@ -19,8 +19,8 @@ const PatientSearch = () => {
 
   return (
     <div>
-      {/* <SearchBar searchingStore={searchingStore}/> */}
-      <CollapsibleTable />
+      <SearchBar searchingStore={searchingStore}/>
+      {/* <CollapsibleTable /> */}
     </div>
   );
 };

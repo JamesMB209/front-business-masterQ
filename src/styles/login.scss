@@ -121,7 +121,7 @@
 .doctor_card {
     border: 1px solid $blueFour;
     border-radius: 10px;
-    width: 40rem;
+    width: 90%;
     min-height: 430px;
     margin: 20px;
     padding: 30px;
@@ -157,7 +157,7 @@
 .doctor_card_diagnosis {
     border: 1px solid $blueFour;
     border-radius: 10px;
-    width: 80rem;
+    width: 70rem;
     min-height: 430px;
     margin: 20px;
     padding: 30px;
@@ -192,5 +192,27 @@
 .pharmacy_card span {
    font-weight: 600;
     
+}
+
+/////PATIENT
+.each_patient_card {
+  
+    width: 850px;
+    min-height: 230px;
+    margin: 10px;
+    padding: 20px;
+}
+
+.search_input {
+   
+    margin-left: 550px;
+}
+
+.patient_card p {
+    font-weight: 600;
+}
+
+.patient_card span {
+    font-weight: 400;
 }
 

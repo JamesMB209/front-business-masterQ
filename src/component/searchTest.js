@@ -1,4 +1,9 @@
-import * as React from 'react';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loadPatientThunk } from "../redux/search/actions";
+import { useNavigate } from "react-router-dom";
+import Card from "react-bootstrap/Card";
+
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -14,14 +19,15 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-function createData(name, calories, fat, carbs, protein, price) {
+
+function createData(f_name, l_name, hkid, gender, email, dob, drug_allergy) {
   return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
+    f_name,
+    l_name,
+    hkid,
+    gender,
+    email,
+    dob,
     history: [
       {
         date: '2020-01-05',
@@ -133,11 +139,13 @@ export default function CollapsibleTable() {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell>First Name</TableCell>
+            <TableCell align="right">Last Name</TableCell>
+            <TableCell align="right">HKID</TableCell>
+            <TableCell align="right">Gender</TableCell>
+            {/* <TableCell align="right">Email</TableCell>
+            <TableCell align="right">Date of Birth</TableCell>
+            <TableCell align="right">Drug Allergy</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>

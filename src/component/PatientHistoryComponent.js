@@ -5,7 +5,7 @@ const PatientHistoryComponent = (props) => {
     return (
       <div>
         {props.history.length == 0 ? (
-                    <p>"No history found for the patient"</p>
+                    ''
                   ) : (
                     props.history.filter((e) => e.diagnosis != undefined && e.created_at != undefined).map((e, i) => {
                       return (

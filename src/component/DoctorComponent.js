@@ -62,19 +62,23 @@ export default function DoctorComponent(props) {
                             {patient.f_name} {patient.l_name}
                           </span>
                         </p>
+                        <p> Gender: <span> {patient.gender}</span></p>
+                        
                         <p>
-                          Gender: <span> {patient.gender}</span>
-                        </p>
-                        <p>
-                          Date of Birth:{" "}
+                          Date of Birth:{" "} 
                           <span>
-                            {new Date(patient.dob).getFullYear()} AGE:{" "}
-                            {new Date().getFullYear() -
+                            {new Date(patient.dob).getFullYear()}-
+                            {new Date(patient.dob).getMonth()}-
+                            {new Date(patient.dob).getDate()}
+                               </span>   </p>
+
+                            <p> Age:{" "}
+                            <span> {new Date().getFullYear() -
                               new Date(patient.dob).getFullYear()}
-                          </span>
-                        </p>
+                          </span></p>
+                      
                         <p>
-                          HKID: <span>{patient.hkid}</span>
+                          H.K.I.D.: <span>{patient.hkid}</span>
                         </p>
                         <p>
                           Email: <span>{patient.email}</span>
@@ -91,6 +95,19 @@ export default function DoctorComponent(props) {
                         <h5 className="doctor_title my-1 mb-3">
                           Visit History
                         </h5>
+                        <p className='ms-4 mt-2'>
+                        {historyStore[0] == undefined
+                              ? "Click to show history"
+                              : ""} </p>
+                        <Button
+                              className="buttonOneSh m-4"
+                              onClick={() => dispatch(getHistory(patient.id))}
+                            >
+                              Check Patient's history
+                            </Button>
+                            <PatientHistoryComponent
+                              history={[...historyStore]}
+                            />     
                       </Card>
                     </Col>
                   </Row>
@@ -101,6 +118,7 @@ export default function DoctorComponent(props) {
                         <h5 className="doctor_title my-1 mb-3">Diagnosis</h5>
                         <input
                           className="diagnosis_input"
+                          placeholder='type diagnosis here'
                           type="text"
                           value={diagnosis}
                           onChange={(e) => {
@@ -112,7 +130,7 @@ export default function DoctorComponent(props) {
                         />
                         <Form>
                           {["radio"].map((type) => (
-                            <div key={`inline-${type}`} className="mb-3">
+                            <div key={`inline-${type}`} className="m-3">
                               <Form.Check
                                 label="Sick Leave"
                                 name="sickLeave"
@@ -162,19 +180,7 @@ export default function DoctorComponent(props) {
                             >
                               Next Patient
                             </Button>
-                            <Button
-                              className="buttonOne m-3"
-                              onClick={() => dispatch(getHistory(patient.id))}
-                            >
-                              Check Patient's history
-                            </Button>
-                            <PatientHistoryComponent
-                              history={[...historyStore]}
-                            />
-
-                            {historyStore[0] == undefined
-                              ? "Click to show history"
-                              : ""}
+                       
                           </div>
                         </Form>
                       </Card>

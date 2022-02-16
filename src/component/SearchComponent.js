@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadPatientThunk } from "../redux/search/actions";
 import { useNavigate } from "react-router-dom";
-import Card from "react-bootstrap/Card";
+// import Card from "react-bootstrap/Card";
+import { Card, Accordion } from "react-bootstrap";
+import { DataGrid } from '@mui/x-data-grid';
 
 import { CDBCard, CDBCardBody, CDBDataTable, CDBContainer } from "cdbreact";
 
@@ -14,39 +16,78 @@ const SearchBar = (props) => {
   useEffect(() => {
     dispatch(loadPatientThunk());
   }, []);
-  const newA = props.searchingStore.map((patient) =>
-    newProps.push({
-      f_name: patient.f_name,
-      l_name: patient.l_name,
-      hkid: patient.hkid,
-      gender: patient.gender,
-      email: patient.email,
-      dob: patient.dob,
-      drug_allergy: patient.drug_allergy,
-    })
+  const columns = [
+    { field: 'hkid', headerName: 'HKID', width: 100 },
+    { field: 'f_name', headerName: 'First name', width: 130 },
+    { field: 'l_name', headerName: 'Last name', width: 130 },
+    // {
+    //   field: 'age',
+    //   headerName: 'Age',
+    //   type: 'number',
+    //   width: 90,
+    // },
+    // {
+    //   field: 'fullName',
+    //   headerName: 'Full name',
+    //   description: 'This column has a value getter and is not sortable.',
+    //   sortable: false,
+    //   width: 160,
+    //   valueGetter: (params) =>
+    //     `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+    // },
+  ];
+  // const newA = props.searchingStore.map((patient, index) => {
+  //   return {
+  //     id: index,
+  //     ...patient
+  //   }}
+  // );
+  const newA = props.searchingStore.map((patient, index) => {
+    newProps.push({id: index,
+      ...patient})
+      
+    }
   );
+  console.log(newA)
+  
   // console.log("tgis is the prips serchcomponent line 18", props.searchingStore);
   // console.log(newProps);
-
+  
   const key = "hkid";
 
   const arrayUniqueByKey = [
     ...new Map(newProps.map((item) => [item[key], item])).values(),
   ];
+  // const rows = [
+  //   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
+  //   { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
+  //   { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
+  //   { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
+  //   { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
+  //   { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
+  //   { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
+  //   { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
+  //   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+  // ];
 
-  // console.log(arrayUniqueByKey);
+  console.log(arrayUniqueByKey);
   return (
-    <div>
-      <input
-        type="text"
-        value={searchPatients}
-        onChange={(e) => setSearchPatients(e.target.value)}
-        placeholder="Enter to search patient"
-      />
-      <br />
-      {arrayUniqueByKey
-        ? arrayUniqueByKey
-            .filter((val) => {
+    <div className='search_card'>
+      <Accordion 
+      className='m-3 pharmacy_stock_card' defaultActiveKey="0" 
+      style={{  width: 1000 }}>
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>
+            <h5 className='setting_title mx-1'>Search Patients</h5>
+          <input 
+          className='search_input'
+          type="text" value={searchPatients} onChange={(e) => setSearchPatients(e.target.value)} placeholder="Enter to search patient"/>
+          </Accordion.Header>
+        <Accordion.Body>
+
+        <div className='search_table' style={{  width: 950 }}>
+          <br />
+          {arrayUniqueByKey ? arrayUniqueByKey.filter((val) => {
               if (val == "" || searchPatients.trim() == "") {
                 return val;
               } else if (
@@ -61,65 +102,31 @@ const SearchBar = (props) => {
               ) {
                 return val;
               }
-            })
-            .map((eachPatient, index) => {
+            }).map((eachPatient, index) => {
               return (
-                <>
-                <div key={index}>
-                  {/* <CDBContainer>
-                        <CDBCard>
-                          <CDBCardBody>
-                            <CDBDataTable
-                              striped
-                              bordered
-                              hover
-                              entriesOptions={[5, 20, 25]}
-                              entries={5}
-                              pagesAmount={4}
-                              data={eachPatient.f_name}
-                              materialSearch={true}
-                            />
-                          </CDBCardBody>
-                        </CDBCard>
-                      </CDBContainer> */}
-
-                  <Card style={{ width: "18rem" }}>
-                    <Card.Img variant="top" src="holder.js/100px180" />
-                    <Card.Body>
-                      <Card.Title>
-                          {eachPatient.f_name} {eachPatient.l_name}
-                      </Card.Title>
-
-                      <Card.Text>
-                       
-                          HKID: {eachPatient.hkid}
-                     
-                      </Card.Text>
-                      <Card.Text>
-                        {/* <p className="email"> */}
-                          e-mail: {eachPatient.email}
-                          {/* </p> */}
-                      </Card.Text>
-                      <Card.Text>
-                        {/* <p className="dob"> */}
-                          Date of birth: {eachPatient.dob}
-                          {/* </p> */}
-                      </Card.Text>
-                      <Card.Text>
-                        {/* <p className="drug_allergy"> */}
-                          Allergies: {eachPatient.drug_allergy}
-                        {/* </p> */}
-                      </Card.Text>
-                      {/* <Button variant="primary">Go somewhere</Button>  a//////// add modal to check appointment history? */}
-                    </Card.Body>
-                  </Card>
-                </div>
-                </>
-              );
-            }) 
-        : "You dont have any patients!"}
+                  <div 
+                  className='patient_card'
+                  key={index}>
+                    <Accordion >
+                      <Accordion.Item eventKey={index}>
+                        <Accordion.Header><span>{eachPatient.f_name} {eachPatient.l_name}</span></Accordion.Header>
+                      <Accordion.Body className='each_patient_card'>
+                        <p>HKID: <span>{eachPatient.hkid}</span></p>
+                        <p>E-mail: <span>{eachPatient.email}</span></p>
+                        <p>Gender: <span>{eachPatient.gender}</span></p>
+                        <p>Phone Number: <span>{eachPatient.phone}</span></p>
+                        <p>Drug Allergies:<span> {eachPatient.drug_allergy}</span></p>
+                      </Accordion.Body>
+                      </Accordion.Item>
+                    </Accordion>
+                  </div>
+              )})
+              : "You dont have any patients!"}
+              </div>
+              </Accordion.Body>
+              </Accordion.Item>
+              </Accordion>
     </div>
-  
   );
 };
 export default SearchBar;

@@ -1,21 +1,12 @@
 
 @import "./styles/_custom";
 @import "./styles/login.scss";
-@import "./styles/billboard.scss";
 
 .side-logo {
     width: 95px;
     height: 95px;
     @include center-all;
 }
-
-/* .sidebar-icon{
-    color: $blueOne;
-    font-size: 30px;
-    padding: auto;
-    margin: 10px auto;
-    display: block;
-} */
 
 
 

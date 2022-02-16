@@ -10,7 +10,7 @@ export default function PharmacyQueueComponent(patient) {
   return (
     <Container>
     <Row>
-      <Col lg={4} md={12} className='pharmacy_card'>
+      <Col lg={3} md={12} className='pharmacy_card'>
  
       {/* <p>
         Patient: {patient.f_name} {patient.l_name}
