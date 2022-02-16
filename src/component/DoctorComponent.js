@@ -1,35 +1,33 @@
-import React, { useEffect, useState } from "react";
-import { getHistory, postDiagnosis } from "../redux/patientHistory/actions";
-import Accordion from "react-bootstrap/Accordion";
+import React, { useState } from "react";
+import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
-import { loadPharmacyStockThunk } from "../redux/pharmacyStock/actions";
-import Form from 'react-bootstrap/Form'
-import FormCheck from 'react-bootstrap/FormCheck'
 import { Container, Card, Button, Row, Col, Stack } from "react-bootstrap";
-
 import { emit, NEXT } from "../redux/webSocets/actions";
+import PatientHistoryComponent from "./PatientHistoryComponent";
+import { getHistory, postDiagnosis } from "../redux/patientHistory/actions";
 
 export default function DoctorComponent(props) {
   const business = useSelector((state) => state.businessObjectStore);
   const drugInventry = useSelector((state) => state.pharmacyStore);
-  let [drugs, setDrugs] = useState([]);
-  const [diagnosis, setDiagnosis] = useState("");
+  const historyStore = useSelector((state) => state.historyStore);
   const [appointmentHistoryId, setAppointmentHistoryId] = useState("");
-  const [patientId, setPatientId] = useState("");
   const [sickLeave, setSickLeave] = useState(false);
   const [followUp, setFollowUp] = useState(false);
+  const [diagnosis, setDiagnosis] = useState("");
+  let [drugs, setDrugs] = useState([]);
+  const dispatch = useDispatch();
 
-  // console.log(props);
-  // console.log(business);
   let doctor = business[`${props.id}`];
-  const [patient, setPatient] = useState("");
 
   const clickDoctor = () => {
-    postDiagnosis(appointmentHistoryId, diagnosis, followUp, sickLeave);
+    dispatch(
+      postDiagnosis(appointmentHistoryId, diagnosis, followUp, sickLeave)
+    );
     emit(NEXT, { doctor: props.id, prescribedDrugs: drugs });
     setDrugs([]);
     setDiagnosis("");
-    // getHistory(patientId);
+    setFollowUp(false);
+    setSickLeave(false);
   };
 
   const onChangePrescription = (e) => {
@@ -43,139 +41,152 @@ export default function DoctorComponent(props) {
 
   return (
     <div>
-      <Container>  
-      {doctor == undefined
-        ? "Select Doctor to continue" : doctor.queue.length !== 0 ?
-          doctor.queue.filter((first) => first == doctor.queue[0]).map((patient) => {
-            return <div>
+      <Container>
+        {doctor == undefined ? (
+          "Select Doctor to continue"
+        ) : doctor.queue.length !== 0 ? (
+          doctor.queue
+            .filter((first) => first == doctor.queue[0])
+            .map((patient) => {
+              return (
+                <div>
+                  <h2 className="ms-5">Dr. {doctor.fullName}</h2>
+                  <Row>
+                    <Col lg={6} sm={12}>
+                      <Card className="doctor_card">
+                        <h5 className="doctor_title my-1 mb-5">Patient Info</h5>
+                        <p>{patient.appointmentHistoryID}</p>
+                        <p>
+                          Name:{" "}
+                          <span>
+                            {patient.f_name} {patient.l_name}
+                          </span>
+                        </p>
+                        <p>
+                          Gender: <span> {patient.gender}</span>
+                        </p>
+                        <p>
+                          Date of Birth:{" "}
+                          <span>
+                            {new Date(patient.dob).getFullYear()} AGE:{" "}
+                            {new Date().getFullYear() -
+                              new Date(patient.dob).getFullYear()}
+                          </span>
+                        </p>
+                        <p>
+                          HKID: <span>{patient.hkid}</span>
+                        </p>
+                        <p>
+                          Email: <span>{patient.email}</span>
+                        </p>
+                        <p>
+                          Allergies: <span>{patient.drug_allergy}</span>
+                        </p>
+                      </Card>
+                    </Col>
 
-              <h2 className='ms-5'>Dr. {doctor.fullName}</h2>
-              <Row>
-                <Col lg={6} sm={12}>
-              <Card className='doctor_card'>
-                
-                <h5 className='doctor_title my-1 mb-5'>
-                  Patient Info</h5>
-              <p>{patient.appointmentHistoryID}</p>
-              <p>Name: <span>{patient.f_name} {patient.l_name}</span></p>
-              <p>Gender: <span> {patient.gender}</span></p>
-              <p>Date of Birth: <span>{patient.dob}</span></p>
-              <p>HKID: <span>{patient.hkid}</span></p>
-              <p>Email: <span>{patient.email}</span></p>
-              <p>Allergies: <span>{patient.drug_allergy}</span></p>
-              </Card>
-              </Col>
+                    {/* {diagnosis} */}
+                    <Col lg={6} sm={12}>
+                      <Card className="doctor_card">
+                        <h5 className="doctor_title my-1 mb-3">
+                          Visit History
+                        </h5>
+                      </Card>
+                    </Col>
+                  </Row>
 
-              {/* {diagnosis} */}
-              <Col lg={6} sm={12}>
-              <Card className='doctor_card'>
-                          <h5 className='doctor_title my-1 mb-3'>
-                              Visit History</h5>
-                          {patient.history.length == 0 ?
-                            <p>"No history found for the patient"</p> : patient.history.map((patientHistory) => {
-                              return (
-                                <div>
-                      <Accordion>
-                        <Accordion.Item eventKey={patient.id}>
-                          <Accordion.Header>Previous Visit{patient.created_at}</Accordion.Header>
-                          <Accordion.Body>
-                            <p>Diagnosis: {patientHistory.diagnosis}</p>
-                          </Accordion.Body>
-                        </Accordion.Item>
-                      </Accordion>
-                    </div>
-                  )
-                })
-              }
-              </Card> 
-              </Col>
-                </Row>
-    
-         {/*      <Button
-              className='buttonOne m-3'
-                onClick={postDiagnosis(
-                  patient.appointmentHistoryID,
-                  diagnosis,
-                  true,
-                  true
-                )}
-              >
-                TEST SENDING
-              </Button> */}
-
-              <Row>
-                <Col lg={6} md={12}>
-              <Card className='doctor_card_diagnosis'>
-                <h5 className='doctor_title my-1 mb-3'>Diagnosis</h5>
-              <input
-              className='diagnosis_input'
-              type="text"
-              value={diagnosis}
-              onChange={(e) => {
-                setDiagnosis(e.target.value);
-                setPatientId(patient.id);
-                setAppointmentHistoryId(patient.appointmentHistoryID);
-                /* type="text"
-                value={diagnosis}
-                onChange={(e) => {
-                  setDiagnosis(e.target.value)
-                  setPatientId(patient.id) */
-                }}
-              />
-              
-              <h5 className='doctor_title my-3 mb-3'>Drug Prescription</h5>
-              <Form className='mt-5'>
-                {drugInventry.map((drugOBJ, index) => (
-                  <Form.Check
-                  className='drug_name'
-                    key={`drug-key-${index}`}
-                    name="drugs"
-                    type="checkbox"
-                    onChange={onChangePrescription}
-                    value={drugOBJ.sku}
-                    label={`${drugOBJ.drug}
+                  <Row>
+                    <Col lg={6} md={12}>
+                      <Card className="doctor_card_diagnosis">
+                        <h5 className="doctor_title my-1 mb-3">Diagnosis</h5>
+                        <input
+                          className="diagnosis_input"
+                          type="text"
+                          value={diagnosis}
+                          onChange={(e) => {
+                            setDiagnosis(e.target.value);
+                            setAppointmentHistoryId(
+                              patient.appointmentHistoryID
+                            );
+                          }}
+                        />
+                        <Form>
+                          {["radio"].map((type) => (
+                            <div key={`inline-${type}`} className="mb-3">
+                              <Form.Check
+                                label="Sick Leave"
+                                name="sickLeave"
+                                type={type}
+                                id={`inline-${type}-1`}
+                                onChange={() =>
+                                  setSickLeave(true)
+                                } /* need better logic for this */
+                                checked={sickLeave}
+                              />
+                              <Form.Check
+                                label="Follow - up"
+                                name="followUp"
+                                type={type}
+                                id={`inline-${type}-2`}
+                                onChange={() =>
+                                  setFollowUp(true)
+                                } /* need better logic for this */
+                                checked={followUp}
+                              />
+                            </div>
+                          ))}
+                        </Form>
+                        <h5 className="doctor_title my-3 mb-3">
+                          Drug Prescription
+                        </h5>
+                        <Form className="mt-5">
+                          {drugInventry.map((drugOBJ, index) => (
+                            <Form.Check
+                              className="drug_name"
+                              key={`drug-key-${index}`}
+                              name="drugs"
+                              type="checkbox"
+                              onChange={onChangePrescription}
+                              value={drugOBJ.sku}
+                              label={`${drugOBJ.drug}
                     :${drugOBJ.dosage}mg.`}
-                    checked={drugs.includes(`${drugOBJ.sku}`) ? true : false}
-                  />
-                ))}
-                <div className='doctor_button'> 
-            {/*        <Button 
-              className='buttonOne m-3'
-              //onClick={clickDoctor}>Next Patient
-              onClick={postDiagnosis(
-                    patient.appointmentHistoryID,
-                    diagnosis,
-                    true,
-                    true
-                  )}
-                >Save Diagnosis
-              </Button> */}
-              <Button 
-              className='buttonTwo m-3'
-            /*   onClick={getHistory(patient.id)}>TEST */
-              onClick={() => {
-                      postDiagnosis(
-                        patient.appointmentHistoryID,
-                        diagnosis,
-                        true,
-                        true
-                      );
-                      emit(NEXT, { doctor: props.id, prescribedDrugs: drugs });
-                      setDrugs([]);
-                      setDiagnosis("");
-                    }}
-                  >
-                    Next Patient
-              </Button>
-              </div>
-              </Form>
-              </Card>
-              </Col>
-              </Row>
-            </div>
+                              checked={
+                                drugs.includes(`${drugOBJ.sku}`) ? true : false
+                              }
+                            />
+                          ))}
+                          <div className="doctor_button">
+                            <Button
+                              className="buttonTwo m-3"
+                              onClick={clickDoctor}
+                            >
+                              Next Patient
+                            </Button>
+                            <Button
+                              className="buttonOne m-3"
+                              onClick={() => dispatch(getHistory(patient.id))}
+                            >
+                              Check Patient's history
+                            </Button>
+                            <PatientHistoryComponent
+                              history={[...historyStore]}
+                            />
 
-          }) : <h2>No patients in queue for Dr. {doctor.fullName} </h2>}
-          </Container>
+                            {historyStore[0] == undefined
+                              ? "Click to show history"
+                              : ""}
+                          </div>
+                        </Form>
+                      </Card>
+                    </Col>
+                  </Row>
+                </div>
+              );
+            })
+        ) : (
+          <h2>No patients in queue for Dr. {doctor.fullName} </h2>
+        )}
+      </Container>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { emit } from "../redux/webSocets/actions";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
@@ -10,12 +10,17 @@ import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined
 const QueueComponent = () => {
   const businessObjectStore = useSelector((state) => state.businessObjectStore);
   const apiStore = useSelector((state) => state.apiStore);
-  // console.log(apiStore);
+  const [modalPatientId, setModalPatientId] = useState("");
+  const [modalDoctorId, setModalDoctorId] = useState("");
 
   //alert modal
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setModalPatientId("");
+    setModalDoctorId("");
+  };
   const handleShow = () => setShow(true);
 
   return (
@@ -59,16 +64,13 @@ const QueueComponent = () => {
                                 variant="primary"
                                 color="error"
                                 className="float-end icon_hover"
-                                onClick={handleShow}
+                                onClick={() => {
+                                  setModalPatientId(e.id);
+                                  setModalDoctorId(doctorDetail.id);
+                                  handleShow();
+                                }}
                               ></DeleteForeverOutlinedIcon>
 
-                      {/* !!!!!!!!!!ADD delete patient function here (patient id not correct) */}
-                      {/* <Button 
-                      className='buttonDanger'  
-                      onClick={() => emit("DELETE", {doctor: doctorDetail.id,patientID:e.id}), handleClose}
-                      >
-                        Delete Patient
-                      </Button> */}
                               <Modal
                                 show={show}
                                 onHide={handleClose}
@@ -87,25 +89,20 @@ const QueueComponent = () => {
                                     Close
                                   </Button>
 
-                                  {/* !!!!!!!!!!ADD delete patient function here (patient id not correct) */}
                                   <Button
                                     className="buttonDanger"
-                                    onClick={() =>
+                                    onClick={() => {
                                       emit("DELETE", {
-                                        doctor: doctorDetail.id,
-                                        patientID: e.id,
-                                      })
-                                    }
+                                        doctor: modalDoctorId,
+                                        patientID: modalPatientId,
+                                      });
+                                      handleClose();
+                                    }}
                                   >
                                     Delete Patient
                                   </Button>
                                 </Modal.Footer>
                               </Modal>
-
-                              {/* <DeleteForeverOutlinedIcon 
-                        color = 'error'
-                        className='float-end icon_hover'
-                        onClick={() => emit("DELETE", {doctor: doctorDetail.id,patientID:e.id})}> </DeleteForeverOutlinedIcon> */}
                             </div>
                           );
                         })}
