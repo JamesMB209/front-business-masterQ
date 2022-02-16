@@ -12,8 +12,9 @@ const ChangeDoctorStatusComponent = () => {
   const settings = useSelector((state) => state.settingsStore)
 
   const dispatch = useDispatch()
-  // console.log(doctors);
-  // console.log(settings)
+  
+  console.log(doctors);
+  console.log(settings)
   return (
     <div>
       <Card.Title>

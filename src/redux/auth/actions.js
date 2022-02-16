@@ -40,7 +40,7 @@ export const loginThunkSuccess = (email, password) => async (dispatch) => {
     } else {
       localStorage.setItem("token", data.token);
       console.log(data)
-      dispatch({ type: LOGIN_SUCCESS_ACTION });
+      dispatch({ type: LOGIN_SUCCESS_ACTION, data: data});
     }
     console.log(data);
   } catch (err) {
@@ -52,4 +52,5 @@ export const loginThunkSuccess = (email, password) => async (dispatch) => {
 export const logOutThunk = () => (dispatch) => {
   localStorage.clear("token");
   dispatch({ type: LOGOUT_NOW_ACTION })
+  window.location.reload()
 }

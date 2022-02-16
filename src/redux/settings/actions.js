@@ -1,5 +1,6 @@
 // for changing the password
 import axios from "axios";
+import { token } from "../webSocets/actions";
 
 export const CHANGE_PASSWORD_SUCCESS = "CHANGE_PASSWORD_SUCCESS";
 export const CHANGE_DOCTOR_STATUS_SUCCESS = "CHANGE_DOCTOR_STATUS_SUCCESS";
@@ -10,7 +11,7 @@ export const CHANGE_PASSWORD_FAILURE = "CHANGE_PASSWORD_FAILURE";
 export const CHANGE_DOCTOR_STATUS_FAILURE = "CHANGE_DOCTOR_STATUS_FAILURE";
 export const CHANGE_DOCTOR_ROOM_FAILURE = "CHANGE_DOCTOR_ROOM_FAILURE";
 export const GET_DOCTOR_FAILURE = "GET_DOCTOR_FAILURE"
-let token = localStorage.getItem("token")
+// let token = localStorage.getItem("token")
 
 export const changePasswordThunk = (secret, password) => async (dispatch) => {
   try {
@@ -71,7 +72,7 @@ export const changeDoctorRoom = (room, id) => async (dispatch) => {
 
 export const getAllDoctors = () => async (dispatch) => {
   try {
-
+// let token = localStorage.getItem("token");
     const response = await axios.get(`${process.env.REACT_APP_API_SERVER}/setting/alldoctors`, {
       headers: { Authorization: `Bearer ${token}` },
     })
