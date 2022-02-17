@@ -40,14 +40,15 @@ const ChangeDoctorStatusComponent = () => {
           </div>
         )
       })}
-      <p className='setting_title my-2'>List of Inactive doctors</p>
+      <br />
+      <p className='setting_title my-2'>Deleted doctors: </p>
       {settings.filter((e) => e.employed !== true).map((e) => {
         return (
           <div key={e.id}>
             <span>Dr. {e.f_name} {e.l_name}</span>
             <Button 
             className='buttonOneSh m-4'
-            onClick={() => dispatch(changeDoctorStatus(e.id, true, true))}>Bring me back!</Button>
+            onClick={() => dispatch(changeDoctorStatus(e.id, true, true))}>Undo</Button>
           </div>
         )
       })}

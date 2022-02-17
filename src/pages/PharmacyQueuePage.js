@@ -23,7 +23,7 @@ export default function PharmacyQueuePage() {
       navigate("/login");
     }
   }, [auth, navigate]);
-
+console.log(businessObject)
   /** Buttons */
   const next = () => {
     emit(NEXT, { doctor: "pharmacy" });

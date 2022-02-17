@@ -42,12 +42,15 @@ const ChangeDoctorRoomComponent = () => {
                     className='setting_input '
                     type="text"
                     placeholder="ex. 1001"
+                    value={roomNumber}
                     onChange={(e) => setRoomNumber(e.target.value)}
                   /> </p>
           <Button
           className='buttonOne my-2'
               onClick={() => {
                       dispatch(changeDoctorRoom(roomNumber, doctorId));
+                      setRoomNumber("")
+                      setDoctorName("")
                     }}
                   >
                     Change Room

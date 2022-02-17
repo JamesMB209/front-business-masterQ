@@ -38,7 +38,7 @@ const ChangePasswordComponent = () => {
       className='setting_input'
       value={secret} 
       onChange={(e) => {setSecret(e.target.value)
-      setError(null)}} placeholder='Enter secret' />
+      setError(null)}} placeholder='Enter current password' />  {/* Is actually a secret*/}
       <br />
       <input
         type="text"

@@ -26,8 +26,7 @@ const BillboardComponent = () => {
 
                     {businessObjectStore[doctorDetail.id] === undefined ? (
                       ""
-                    ) : businessObjectStore[doctorDetail.id].queue.length ===
-                        1 ||
+                    ) : 
                       businessObjectStore[doctorDetail.id].queue.length ===
                         0 ? (
                       <div className="board_box">
@@ -35,10 +34,10 @@ const BillboardComponent = () => {
                       </div>
                     ) : (
                       <div className="board_box">
-                        <h5 className="mt-5 pt-5">Next Patient:</h5>
+                        <h5 className="mt-5 pt-5">Calling Patient:</h5>
                         <h3>
-                          {businessObjectStore[doctorDetail.id].queue[1].f_name}{" "}
-                          {businessObjectStore[doctorDetail.id].queue[1].l_name}
+                          {businessObjectStore[doctorDetail.id].queue[0].f_name}{" "}
+                          {businessObjectStore[doctorDetail.id].queue[0].l_name}
                         </h3>
 
                         <h5 className="mt-5">Patients in queue: </h5>

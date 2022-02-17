@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Container, Card, Button, Row, Col, Stack } from "react-bootstrap";
 import { emit, NEXT } from "../redux/webSocets/actions";
 import PatientHistoryComponent from "./PatientHistoryComponent";
-import { getHistory, postDiagnosis } from "../redux/patientHistory/actions";
+import { getDiagnosis, getHistory, postDiagnosis } from "../redux/patientHistory/actions";
 
 export default function DoctorComponent(props) {
   const business = useSelector((state) => state.businessObjectStore);
@@ -23,7 +23,8 @@ export default function DoctorComponent(props) {
     dispatch(
       postDiagnosis(appointmentHistoryId, diagnosis, followUp, sickLeave)
     );
-    emit(NEXT, { doctor: props.id, prescribedDrugs: drugs });
+    // dispatch(getDiagnosis(appointmentHistoryId))
+    emit(NEXT, { doctor: props.id, prescribedDrugs: drugs, documentation: {sickLeave: sickLeave, followUp: followUp} });
     setDrugs([]);
     setDiagnosis("");
     setFollowUp(false);
@@ -55,7 +56,7 @@ export default function DoctorComponent(props) {
                     <Col lg={6} sm={12}>
                       <Card className="doctor_card">
                         <h5 className="doctor_title my-1 mb-5">Patient Info</h5>
-                        <p>{patient.appointmentHistoryID}</p>
+                        {/* <p>Patient I.D. : <span>{patient.appointmentHistoryID}</span></p> */}
                         <p>
                           Name:{" "}
                           <span>
