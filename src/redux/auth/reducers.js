@@ -6,19 +6,20 @@ import {
 
 const initialState = {
   isAuthenticated: false || localStorage.getItem("token") != null,
-  config: {}, patients: {},
+  config: {},
+  patients: {},
 };
 
 export function authReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN_SUCCESS_ACTION:
-      console.log("datadtadata",action.data)
+      console.log("datadtadata", action.data);
       return Object.assign(
         {},
         state,
         { isAuthenticated: true },
         { config: { ...action.data } },
-        {patients: {}}
+        { patients: {} }
       );
     case LOGIN_FAILURE_ACTION:
       return state;

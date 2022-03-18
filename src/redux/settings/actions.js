@@ -10,8 +10,7 @@ export const GET_DOCTORS_SUCCESS = "GET_DOCTORS_SUCCESS";
 export const CHANGE_PASSWORD_FAILURE = "CHANGE_PASSWORD_FAILURE";
 export const CHANGE_DOCTOR_STATUS_FAILURE = "CHANGE_DOCTOR_STATUS_FAILURE";
 export const CHANGE_DOCTOR_ROOM_FAILURE = "CHANGE_DOCTOR_ROOM_FAILURE";
-export const GET_DOCTOR_FAILURE = "GET_DOCTOR_FAILURE"
-// let token = localStorage.getItem("token")
+export const GET_DOCTOR_FAILURE = "GET_DOCTOR_FAILURE";
 
 export const changePasswordThunk = (secret, password) => async (dispatch) => {
   try {
@@ -22,7 +21,7 @@ export const changePasswordThunk = (secret, password) => async (dispatch) => {
         secret: secret,
         password: password,
       },
-      {headers: { Authorization: `Bearer ${token}` }}
+      { headers: { Authorization: `Bearer ${token}` } }
     );
     dispatch({ type: CHANGE_PASSWORD_SUCCESS, data: { secret, password } });
     console.log(response);
@@ -33,24 +32,25 @@ export const changePasswordThunk = (secret, password) => async (dispatch) => {
   }
 };
 
-export const changeDoctorStatus = (doctor, active, employed) => async (dispatch) => {
-  try {
-    const response = await axios.post(
-      `${process.env.REACT_APP_API_SERVER}/setting/status`,
-      {
+export const changeDoctorStatus =
+  (doctor, active, employed) => async (dispatch) => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_SERVER}/setting/status`,
+        {
           doctor: doctor,
-        active: active,
-        employed: employed,
-      },
-      {headers: { Authorization: `Bearer ${token}` }}
-    );
-    console.log(response);
-    console.log("clicked")
-    dispatch({type: CHANGE_DOCTOR_ROOM_SUCCESS, data: response.data})
-  } catch (error) {
-    console.log(error);
-  }
-};
+          active: active,
+          employed: employed,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      console.log(response);
+      console.log("clicked");
+      dispatch({ type: CHANGE_DOCTOR_ROOM_SUCCESS, data: response.data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 export const changeDoctorRoom = (room, id) => async (dispatch) => {
   try {
@@ -60,7 +60,7 @@ export const changeDoctorRoom = (room, id) => async (dispatch) => {
         room: room,
         id: id,
       },
-      {headers: { Authorization: `Bearer ${token}` }}
+      { headers: { Authorization: `Bearer ${token}` } }
     );
     dispatch({ type: CHANGE_DOCTOR_ROOM_SUCCESS, data: { room, id } });
     console.log(response);
@@ -72,13 +72,15 @@ export const changeDoctorRoom = (room, id) => async (dispatch) => {
 
 export const getAllDoctors = () => async (dispatch) => {
   try {
-// let token = localStorage.getItem("token");
-    const response = await axios.get(`${process.env.REACT_APP_API_SERVER}/setting/alldoctors`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    console.log(response.data)
-    dispatch({type: GET_DOCTORS_SUCCESS, data: response.data})
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_SERVER}/setting/alldoctors`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    console.log(response.data);
+    dispatch({ type: GET_DOCTORS_SUCCESS, data: response.data });
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
-}
+};

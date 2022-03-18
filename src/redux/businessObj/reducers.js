@@ -1,6 +1,6 @@
 import { LOAD_BUSINESS_FAILURE, LOAD_BUSINESS_OBJECT_SUCCESS } from "./actions";
 
-let initialState = {pharmacy:{queue:[]}};
+let initialState = { pharmacy: { queue: [] } };
 
 export const businessObjectReducer = (state = initialState, action) => {
   switch (action.type) {

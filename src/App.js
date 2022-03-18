@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Routes, BrowserRouter, Link, Route, Navigate } from "react-router-dom";
 import Login from "./pages/LoginPage";
 import Billboard from "./pages/BillboardPage";
@@ -8,10 +8,10 @@ import Queue from "./pages/QueuePage";
 import PharmacyQueuePage from "./pages/PharmacyQueuePage";
 import Settings from "./pages/SettingsPage";
 import { logOutThunk } from "./redux/auth/actions";
-import { Navbar, NavItem, Container, Accordion } from "react-bootstrap";
+import { NavItem } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
-import { socket, emit, token } from "./redux/webSocets/actions";
+import { socket, token } from "./redux/webSocets/actions";
 import { loadBusinessObjThunk } from "./redux/businessObj/actions";
 import { loadApiThunk } from "./redux/api/actions";
 import { loadPharmacyStockThunk } from "./redux/pharmacyStock/actions";
@@ -61,42 +61,11 @@ function App() {
         style={{ display: "flex", height: "100vh", overflow: "scroll initial" }}
       >
         <CDBSidebar textColor="#3E87A7 " backgroundColor="#EBF9FA;">
-          {/* <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-            <a href="/" className="text-decoration-none" style={{ color: 'inherit' }}>
-            MasterQ
-            </a>
-          </CDBSidebarHeader> */}
-
           <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
             <img src={logo} className="side-logo" alt="logo" />
           </CDBSidebarHeader>
 
           <CDBSidebarContent className="sidebar-content">
-            {/*   <button
-              onClick={() => {
-                emit("NEXT", { business: 1, doctor: 1 });
-                console.log("clicked");
-              }}
-            >
-              Dr. Peram next button
-            </button>
-            <button
-              onClick={() => {
-                emit("NEXT", { business: 1, doctor: 2 });
-                console.log("clicked");
-              }}
-            >
-              Dr. Pris next button
-            </button>
-            <button
-              onClick={() => {
-                emit("NEXT", { business: 1, doctor: 3 });
-                console.log("clicked");
-              }}
-            >
-              Dr. James next button
-            </button> */}
-
             <CDBSidebarMenu>
               <Link to="/billboard" activeclassname="activeClicked">
                 <CDBSidebarMenuItem className="sidebar-icon" icon="tv">

@@ -13,7 +13,6 @@ const QueueComponent = () => {
   const [modalPatientId, setModalPatientId] = useState("");
   const [modalDoctorId, setModalDoctorId] = useState("");
 
-  //alert modal
   const [show, setShow] = useState(false);
 
   const handleClose = () => {

@@ -4,7 +4,7 @@ import {
   CHANGE_DOCTOR_ROOM_SUCCESS,
   CHANGE_DOCTOR_STATUS_SUCCESS,
   GET_DOCTORS_SUCCESS,
-  GET_DOCTOR_FAILURE
+  GET_DOCTOR_FAILURE,
 } from "./actions";
 
 let initialState = [];
@@ -21,8 +21,7 @@ export const settingsReducer = (state = initialState, action) => {
       console.log("change doctor room success");
       return Object.assign({}, state, action.data);
     case GET_DOCTORS_SUCCESS:
-      // return Object.assign({}, state, action.data) // this is the old one
-      return state.concat(action.data)
+      return state.concat(action.data);
     case CHANGE_PASSWORD_FAILURE:
       console.log("Fail Dail");
       return state;

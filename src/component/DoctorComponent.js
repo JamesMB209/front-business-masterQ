@@ -4,7 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Container, Card, Button, Row, Col, Stack } from "react-bootstrap";
 import { emit, NEXT } from "../redux/webSocets/actions";
 import PatientHistoryComponent from "./PatientHistoryComponent";
-import { getDiagnosis, getHistory, postDiagnosis } from "../redux/patientHistory/actions";
+import {
+  getDiagnosis,
+  getHistory,
+  postDiagnosis,
+} from "../redux/patientHistory/actions";
 
 export default function DoctorComponent(props) {
   const business = useSelector((state) => state.businessObjectStore);
@@ -23,8 +27,11 @@ export default function DoctorComponent(props) {
     dispatch(
       postDiagnosis(appointmentHistoryId, diagnosis, followUp, sickLeave)
     );
-    // dispatch(getDiagnosis(appointmentHistoryId))
-    emit(NEXT, { doctor: props.id, prescribedDrugs: drugs, documentation: {sickLeave: sickLeave, followUp: followUp} });
+    emit(NEXT, {
+      doctor: props.id,
+      prescribedDrugs: drugs,
+      documentation: { sickLeave: sickLeave, followUp: followUp },
+    });
     setDrugs([]);
     setDiagnosis("");
     setFollowUp(false);
@@ -56,28 +63,36 @@ export default function DoctorComponent(props) {
                     <Col lg={6} sm={12}>
                       <Card className="doctor_card">
                         <h5 className="doctor_title my-1 mb-5">Patient Info</h5>
-                        {/* <p>Patient I.D. : <span>{patient.appointmentHistoryID}</span></p> */}
                         <p>
                           Name:{" "}
                           <span>
                             {patient.f_name} {patient.l_name}
                           </span>
                         </p>
-                        <p> Gender: <span> {patient.gender}</span></p>
-                        
                         <p>
-                          Date of Birth:{" "} 
+                          {" "}
+                          Gender: <span> {patient.gender}</span>
+                        </p>
+
+                        <p>
+                          Date of Birth:{" "}
                           <span>
                             {new Date(patient.dob).getFullYear()}-
                             {new Date(patient.dob).getMonth()}-
                             {new Date(patient.dob).getDate()}
-                               </span>   </p>
+                          </span>{" "}
+                        </p>
 
-                            <p> Age:{" "}
-                            <span> {new Date().getFullYear() -
+                        <p>
+                          {" "}
+                          Age:{" "}
+                          <span>
+                            {" "}
+                            {new Date().getFullYear() -
                               new Date(patient.dob).getFullYear()}
-                          </span></p>
-                      
+                          </span>
+                        </p>
+
                         <p>
                           H.K.I.D.: <span>{patient.hkid}</span>
                         </p>
@@ -96,19 +111,18 @@ export default function DoctorComponent(props) {
                         <h5 className="doctor_title my-1 mb-3">
                           Visit History
                         </h5>
-                        <p className='ms-4 mt-2'>
-                        {historyStore[0] == undefined
-                              ? "Click to show history"
-                              : ""} </p>
+                        <p className="ms-4 mt-2">
+                          {historyStore[0] == undefined
+                            ? "Click to show history"
+                            : ""}{" "}
+                        </p>
                         <Button
-                              className="buttonOneSh m-4"
-                              onClick={() => dispatch(getHistory(patient.id))}
-                            >
-                              Check Patient's history
-                            </Button>
-                            <PatientHistoryComponent
-                              history={[...historyStore]}
-                            />     
+                          className="buttonOneSh m-4"
+                          onClick={() => dispatch(getHistory(patient.id))}
+                        >
+                          Check Patient's history
+                        </Button>
+                        <PatientHistoryComponent history={[...historyStore]} />
                       </Card>
                     </Col>
                   </Row>
@@ -119,7 +133,7 @@ export default function DoctorComponent(props) {
                         <h5 className="doctor_title my-1 mb-3">Diagnosis</h5>
                         <input
                           className="diagnosis_input"
-                          placeholder='type diagnosis here'
+                          placeholder="type diagnosis here"
                           type="text"
                           value={diagnosis}
                           onChange={(e) => {
@@ -181,7 +195,6 @@ export default function DoctorComponent(props) {
                             >
                               Next Patient
                             </Button>
-                       
                           </div>
                         </Form>
                       </Card>

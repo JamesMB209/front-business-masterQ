@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Billboard = () => {
   const navigate = useNavigate();
   const auth = useSelector((state) => state.authStore.isAuthenticated);
-  
+
   useEffect(() => {
     if (auth !== true) {
       navigate("/login");

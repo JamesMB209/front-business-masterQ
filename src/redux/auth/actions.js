@@ -18,7 +18,6 @@ export function loginFailure(message) {
   };
 }
 
-
 export const loginThunkSuccess = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: LOGIN_REQUEST_ACTION });
@@ -39,18 +38,18 @@ export const loginThunkSuccess = (email, password) => async (dispatch) => {
       });
     } else {
       localStorage.setItem("token", data.token);
-      console.log(data)
-      dispatch({ type: LOGIN_SUCCESS_ACTION, data: data});
+      console.log(data);
+      dispatch({ type: LOGIN_SUCCESS_ACTION, data: data });
     }
     console.log(data);
   } catch (err) {
-    dispatch({ type: LOGIN_FAILURE_ACTION })
+    dispatch({ type: LOGIN_FAILURE_ACTION });
     console.log(err);
   }
 };
 
 export const logOutThunk = () => (dispatch) => {
   localStorage.clear("token");
-  dispatch({ type: LOGOUT_NOW_ACTION })
-  window.location.reload()
-}
+  dispatch({ type: LOGOUT_NOW_ACTION });
+  window.location.reload();
+};

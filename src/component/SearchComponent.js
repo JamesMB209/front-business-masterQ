@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loadPatientThunk } from "../redux/search/actions";
-import { useNavigate } from "react-router-dom";
-// import Card from "react-bootstrap/Card";
-import { Card, Accordion } from "react-bootstrap";
-import { DataGrid } from '@mui/x-data-grid';
-
-import { CDBCard, CDBCardBody, CDBDataTable, CDBContainer } from "cdbreact";
+import { Accordion } from "react-bootstrap";
 
 
 const SearchBar = (props) => {
@@ -16,59 +11,13 @@ const SearchBar = (props) => {
   useEffect(() => {
     dispatch(loadPatientThunk());
   }, []);
-  const columns = [
-    { field: 'hkid', headerName: 'HKID', width: 100 },
-    { field: 'f_name', headerName: 'First name', width: 130 },
-    { field: 'l_name', headerName: 'Last name', width: 130 },
-    // {
-    //   field: 'age',
-    //   headerName: 'Age',
-    //   type: 'number',
-    //   width: 90,
-    // },
-    // {
-    //   field: 'fullName',
-    //   headerName: 'Full name',
-    //   description: 'This column has a value getter and is not sortable.',
-    //   sortable: false,
-    //   width: 160,
-    //   valueGetter: (params) =>
-    //     `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    // },
-  ];
-  // const newA = props.searchingStore.map((patient, index) => {
-  //   return {
-  //     id: index,
-  //     ...patient
-  //   }}
-  // );
-  const newA = props.searchingStore.map((patient, index) => {
-    newProps.push({id: index,
-      ...patient})
-      
-    }
-  );
-  console.log(newA)
-  
-  // console.log("tgis is the prips serchcomponent line 18", props.searchingStore);
-  // console.log(newProps);
   
   const key = "hkid";
 
   const arrayUniqueByKey = [
     ...new Map(newProps.map((item) => [item[key], item])).values(),
   ];
-  // const rows = [
-  //   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  //   { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  //   { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  //   { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  //   { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  //   { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  //   { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  //   { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  //   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-  // ];
+
 
   console.log(arrayUniqueByKey);
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
 const BillboardComponent = () => {
   const businessObjectStore = useSelector((state) => state.businessObjectStore);
@@ -21,8 +21,6 @@ const BillboardComponent = () => {
                       <h4 className="my-2"> Room {doctorDetail.room} </h4>
                       <h4> Dr {doctorDetail.name} </h4>
                     </div>
-
-                    {/*  <hr className='under-line my-4'/> */}
 
                     {businessObjectStore[doctorDetail.id] === undefined ? (
                       ""

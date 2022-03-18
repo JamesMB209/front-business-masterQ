@@ -5,7 +5,7 @@ import thunk from "redux-thunk";
 import { apiReducer } from "./api/reducers";
 import { authReducer } from "./auth/reducers";
 import { searchReducer } from "./search/reducers";
-import {businessObjectReducer} from "./businessObj/reducers"
+import { businessObjectReducer } from "./businessObj/reducers";
 import { emit, init } from "./webSocets/actions";
 import { settingsReducer } from "./settings/reducers";
 import { patientHistoryReducer } from "./patientHistory/reducers";

@@ -33,13 +33,16 @@ export function getHistory(id) {
 export function postDiagnosis(id, diagnosis, follow_up, sick_leave) {
   return (dispatch) => {
     return axios
-      .post(`${process.env.REACT_APP_API_SERVER}/diagnosis/submit`, {
-        appointmentHistoryID: id,
-        diagnosis: diagnosis,
-        followUp: follow_up,
-        sickLeave: sick_leave,
-      },
-      {headers: { Authorization: `Bearer ${token}` }})
+      .post(
+        `${process.env.REACT_APP_API_SERVER}/diagnosis/submit`,
+        {
+          appointmentHistoryID: id,
+          diagnosis: diagnosis,
+          followUp: follow_up,
+          sickLeave: sick_leave,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
       .then((response) => {
         console.log(response);
       })
@@ -51,13 +54,16 @@ export function postDiagnosis(id, diagnosis, follow_up, sick_leave) {
 
 export function getDiagnosis(id) {
   return (dispatch) => {
-    return axios.get(`${process.env.REACT_APP_API_SERVER}/diagnosis/getdiagnosis`, {
-      headers: { Authorization: `Bearer ${token}` },
-      params: { appointmentHistoryID: id },
-    }).then((response) => {
-      console.log(response)
-    }).catch((error) => {
-      console.log(`Big fat error in getting diagnosis`, error)
-    })
-  }
+    return axios
+      .get(`${process.env.REACT_APP_API_SERVER}/diagnosis/getdiagnosis`, {
+        headers: { Authorization: `Bearer ${token}` },
+        params: { appointmentHistoryID: id },
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(`Big fat error in getting diagnosis`, error);
+      });
+  };
 }

@@ -12,7 +12,7 @@ export function loadPatientThunk() {
       })
       .then((response) => {
         console.log(response.data);
-        dispatch({ type: LOAD_SEARCH, data: response.data});
+        dispatch({ type: LOAD_SEARCH, data: response.data });
       })
       .catch((error) => console.log(error));
   };

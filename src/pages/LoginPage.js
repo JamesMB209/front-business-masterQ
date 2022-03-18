@@ -14,8 +14,8 @@ export default function LoginPage() {
   }, [auth, navigate]);
 
   return (
-      <div>
-          <Login />
-      </div>
-  )
+    <div>
+      <Login />
+    </div>
+  );
 }
